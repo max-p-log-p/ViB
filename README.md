@@ -50,12 +50,14 @@ The \g mapping is used for get requests. The \p mapping is used for post request
 URL Lines
 ---------
 By default, the vib script will output lines at the bottom of a parsed webpage, looking like this:
-<168> news.ycombinator.com/user?id=fm77
+<8> www.google.com/search q=&btnK=Google Search&btnI=I'm Feeling Lucky&btnK=Google Search&btnI=I'm Feeling Lucky&source=hp&ei=tFWaYJ3WEYWB9u8P6dyt-A0&iflsig=AINFCbYAAAAAYJpjxKky4-qABenQlt4WPP5eMsQfMBKG
 
 The <[0-9]+> component is the label of the url, which enables one to easily search for a link. It corresponds to a similar label in the webpage that looks like: 
 ^[168^] fm77
 
 The <0> label always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by using the \h mapping.
+
+The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc. Make sure to escape the url if it contains &, %, or #.
 
 Link Labels
 ------
