@@ -68,7 +68,7 @@ Delimiter Number (HTTP Request Type) Delimiter (HTTP Endpoint)
 
 Design Choices
 --------------
-The vib browser is designed to be as minimal as possible. This results in many inelegant hacks and missing features that can be added by the user. For example, since vi/vim does not support ANSI escape sequences for color, the octal sequence \033 and \035 are used to delimit a label for a url because these characters are blue in vim. With a different text editor like ed, it might be possible to use ANSI escape sequences. By default, the vib browser only supports http/https urls and does not handle urls of a different protocol correctly since this did not seem necessary for the majority of use cases. It is possible to add this functionality in the attr2url function. It also does not handle the majority of html elements such as <option>: this should be added manually by the user.
+The vib browser is designed to be as minimal as possible. This results in many inelegant hacks and missing features that can be added by the user. For example, since vi/vim does not support ANSI escape sequences for color, the octal sequence \033 and \035 are used to delimit a label for a url because these characters are blue in vim. With a different text editor like ed, it might be possible to use ANSI escape sequences. By default, the vib browser only supports http/https urls and does not handle urls of a different protocol correctly since this did not seem necessary for the majority of use cases. It is possible to add this functionality in the attr2url function. It also does not handle the majority of html elements such as \<option\>: this should be added manually by the user.
 
 Basic Features
 --------------
