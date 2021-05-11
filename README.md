@@ -74,7 +74,7 @@ Basic Features
 - Searching for text - Press / to search forwards and ? to search backwards
 - Copy - Press y[action] to copy
 - Delete cookie - Remove cookie in cookie file
-- Request a URL - Press \b and type get [url]" followed by enter
+- Request a URL - Press \b and type get [url]" followed by enter, where the url does not contain the protocol (https://)
 - Click link - Search for <link number> and press \u
 
 For more features read the vi manpage.
