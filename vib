@@ -1,0 +1,50 @@
+#!/usr/bin/env python3
+import sys
+from html.parser import HTMLParser
+
+urls = []
+
+def attr2url(attr):
+	if attr.startswith('https://') or attr.startswith('http://') or attr.startswith('//'):
+		return attr.split('//', maxsplit=1)[1]
+	elif attr.startswith('/'):
+		return f'{urls[0].split("/")[0]}{attr}' 
+	else:
+		return f'{urls[0]}{attr}' if urls[0][-1] == '/' else f'{urls[0]}/{attr}'
+
+class ViB(HTMLParser):
+	bad = {'script': False, 'style': False}
+	form = ['', '']
+	input_tags = ['input', 'textarea', 'select', 'button']
+
+	def handle_starttag(self, tag, attrs):
+		attrs = dict(attrs)
+		if tag == 'a' and 'href' in attrs.keys():
+			sys.stdout.write(f'\033{len(urls)}\035 ')
+			urls.append(attr2url(attrs['href']))
+		elif tag == 'form':
+			ViB.form[0] = f'{attr2url(attrs.get("action", ""))} '
+			ViB.form[1] = attrs.get('method', 'get')
+		elif tag in ViB.input_tags and 'name' in attrs.keys():
+			ViB.form[0] += f'{attrs["name"]}={attrs.get("value", "")}&'
+		elif tag in ViB.bad.keys():
+			ViB.bad[tag] = True
+
+	def handle_endtag(self, tag):
+		if tag in ViB.bad.keys():
+			ViB.bad[tag] = False
+		elif tag == 'form' and ViB.form[0] != ' ':
+			print(f'\033{len(urls)}{ViB.form[1]}\035 {ViB.form[0].split(" ")[0]}')
+			urls.append(f'{ViB.form[0][:-1]}')
+
+	def handle_data(self, data):
+		if not (True in ViB.bad.values()):
+			print(data)
+
+sys.stdin.reconfigure(errors='ignore')
+parser = ViB()
+input = sys.stdin.readlines()
+urls.append(input[-1].split('://', maxsplit=1)[1])
+parser.feed('\n'.join(input[:-1]))
+for i in range(len(urls)):
+	print(f'<{i}> {urls[i]}')
