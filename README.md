@@ -77,7 +77,7 @@ Basic Features
 - Copy - Press y[action] to copy
 - Delete cookie - Remove cookie in cookie file
 - Request a URL - Press \b and type get [url]" followed by enter, where the url does not contain the protocol (https://)
-- Click link - Search for <link number> and press \g
+- Click link - Search for \<link number\> and press \g
 
 For more features read the vi manpage.
 
