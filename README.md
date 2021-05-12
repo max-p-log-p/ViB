@@ -4,7 +4,7 @@ ViB - Browser in Vi (Vim-Minimal)
 Why should I use this browser?
 ------------------------------
 
-Clocking in at 50 lines of python, this browser is easily extended and is highly unlikely to have serious security vulnerabilities (excluding curl). The vi interface is reused to support a text based web browser: this means that it has vi keybindings by default. It has minimal memory usage owing to the reuse of the vi text editor as a web browser. It is portable to any operating system with python, vi, and curl installed, assuming that the python modules sys and html are present. The lack of support for images, video, and javascript can be considered features: this prevents mindless web surfing on social media while retaining the ability to search the web for useful information. Despite its name vib can be used with many different text editors.
+Clocking in at 49 lines of python, this browser is easily extended and is highly unlikely to have serious security vulnerabilities (excluding curl). The vi interface is reused to support a text based web browser: this means that it has vi keybindings by default. It has minimal memory usage owing to the reuse of the vi text editor as a web browser. It is portable to any operating system with python, vi, and curl installed, assuming that the python modules sys and html are present. The lack of support for images, video, and javascript can be considered features: this prevents mindless web surfing on social media while retaining the ability to search the web for useful information. Despite its name vib can be used with many different text editors.
 
 How to use
 ----------
@@ -41,7 +41,7 @@ These mappings will not work by default in a text editor like nvi.
 
 The \e mapping allows for escaping characters that are interpreted in vim. The \g mapping should be used at the beginning of a url line (explained more below). For example, in the url line
 
-<0> lobste.rs/
+<1> lobste.rs/
 
 , the cursor should be placed before the '<' character before executing the mapping. For mappings \p and \h, the mapping should be used at the beginning of any url, but will usually be used for url lines. The mapping \b can be used at any location.
 
@@ -55,7 +55,7 @@ By default, the vib script will output lines at the bottom of a parsed webpage, 
 The <[0-9]+> component is the label of the url, which enables one to easily search for a link. It corresponds to a similar label in the webpage that looks like: 
 ^[168^] fm77
 
-The <0> label always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by using the \h mapping.
+The <1> label always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by using the \h mapping.
 
 The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc. Make sure to escape the url if it contains &, %, or #.
 
