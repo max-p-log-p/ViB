@@ -1,0 +1,732 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript">
+            navigator.sayswho = (function(){
+                var ua= navigator.userAgent, tem, 
+                M= ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || [];
+                if(/trident/i.test(M[1])){
+                    tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
+                    return 'IE '+(tem[1] || '');
+                }
+                if(M[1]=== 'Chrome'){
+                    tem= ua.match(/\b(OPR|Edge)\/(\d+)/);
+                    if(tem!= null) return tem.slice(1).join(' ').replace('OPR', 'Opera');
+                }
+                M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+                if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+                return M.join(' ');
+            })();
+
+            if (false) {
+                window.onerror = function(errorMsg, url, lineNumber) {
+                    const request = new XMLHttpRequest()
+                    request.onreadystatechange = function() {}
+                    request.open('GET', '/papi/user/logJsError/?file=' + encodeURIComponent(url) + '&message=' + encodeURIComponent(errorMsg) + '&line=' + lineNumber + '&client=' + encodeURIComponent(navigator.sayswho))
+                    request.send()
+                }
+            }
+        </script>
+
+        <title>Electronic library. Download books free. Finding books</title>
+<base href="/">
+
+                        <meta charset="utf-8">		                       
+                        <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                        <meta name="viewport" content="width=device-width, initial-scale=1">
+                        <meta name="title" content="Electronic library. Download books free. Finding books">
+			<meta name="description" content="Electronic library. Download books free. Finding books | Z-Library. Download books for free. Find books">
+			<meta name="robots" content="index,all">
+			<meta name="distribution" content="global">
+			<meta http-equiv="cache-control" content="no-cache">
+			<meta http-equiv="pragma" content="no-cache">
+
+                        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+                        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+                        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+                        <link rel="manifest" href="/manifest.json">
+                        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+                        <meta name="apple-mobile-web-app-title" content="Z-Library">
+                        <meta name="application-name" content="Z-Library">
+                        <meta name="theme-color" content="#ffffff">
+
+                        <meta name="propeller" content="49c350d528ba144cace841cac74260ab">
+                        <meta name="alfacoins-site-verification" content="5ef0e7b2483f15ef0e7b2484275ef0e7b24845d_ALFAcoins">
+	
+<!-- CSS SET -->
+<!-- JS SET --> 
+<link REL="SHORTCUT ICON" HREF="/favicon.ico">
+        <link rel="search" type="application/opensearchdescription+xml" href="/search.xml" title="Search for books in the library Z-Library" />
+
+                    <link rel="stylesheet" type="text/css" href="/resources/build/global.css?0.260" />
+            <script type="text/javascript" src="/resources/build/global.js?0.260"></script>
+        
+                
+        
+        <script>
+            
+            const Config = {"domainHost":"1lib.us","BRegion":"highrisk"};
+            const CurrentUser = new User(null);
+            const CurrentClientIP = "47.187.201.155";
+            const proxiesToCheck = []; //for google verification
+
+            i18next
+                .use(i18nextHttpBackend)
+                .init({
+                    lng: 'en',
+                    fallbackLng: 'en',
+                    backend: {
+                        loadPath: '/resources/build/locales/{{lng}}'
+                    }
+                })
+
+            
+            $(document).on('change', '.form-email-field', function() {
+                const $input = $(this)
+                const email = $input.val()
+
+                $input.parents('.form-group').find('.form-error').remove()
+                $.each(['@icloud.com', '@mac.com', '@me.com'], function(key, domain) {
+                    if (email.indexOf(domain) !== -1) {
+                        $input.tooltip({
+                            placement: 'top',
+                            trigger: 'manual',
+                            title: $input.data('message'),
+                        }).tooltip('show')
+                    }
+                })
+            })
+
+            $(document).on('focus', '.form-email-field', function() {
+                $(this).tooltip('hide')
+            })
+        </script>
+    </head>
+
+    <body style="margin:0px;padding:0px;" class="index startForm">
+        <table border="0" height="100%" width="100%" style="height:100%;" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr style="height:10px;">
+                    <td>
+                        <div class="container-fluid">
+                            
+<div class="row">
+    <div class="col-md-12">
+        <style>
+    div#colorBoxes
+    {
+        text-transform: capitalize;
+    }
+
+    div#colorBoxes ul li.active:nth-child(1)
+    {
+        border: 1px solid #378096;
+        box-shadow: 0 0 6px #7DBCCF;
+        border-top: 0px;
+    }
+
+    div#colorBoxes ul li.active:nth-child(2)
+    {
+        border: 1px solid #6e9b41;
+        box-shadow: 0 0 6px #a4e861;
+        border-top: 0px;
+    }
+</style>
+
+
+<div id="colorBoxes" class="darkShadow">
+    <ul>
+        <li style="background: #49afd0;" class="">
+            <a href="/" class="header-main-nav-link" data-mode="books">
+                <span class="hidden-xs">7,291,448 books</span>
+                <span class="visible-xs">books</span>
+            </a>
+        </li>
+
+        <li style="background: #8ecd51;">
+            <a href="https://booksc.org/" class="header-main-nav-link" data-mode="articles">
+                <span class="hidden-xs">80,759,561 articles</span>
+                <span class="visible-xs">articles</span>
+            </a>
+        </li>
+
+        <li style="background: #90a5a8;" class="hidden-xs"><a href="https://z-lib.org">ZLibrary Home</a></li>
+        <li style="background: #90a5a8;" class="visible-xs"><a href="https://z-lib.org">Home</a></li>
+    </ul>
+</div>
+
+        <div role="navigation" class="navbar-default navbar-right" style="background-color: transparent;">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" onclick="">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="clear: both;">
+                <ul class="nav navbar-nav navbar-right">
+                                            <li class="dropdown">
+                            <a href="#" id="loginDDLink" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sign in <span class="caret"></span></a>
+                            <ul class="dropdown-menu" aria-labelledby="loginDDLink">
+                                <li><a id="dropdownMenuLoginBtn" href="https://singlelogin.me?from=1lib.us">Login</a></li>
+                                <li><a id="dropdownMenuRegistrationBtn" href="https://singlelogin.me/registration.php">Registration</a></li>
+                            </ul>
+                        </li>
+                    
+                    
+                    <li>
+                    <a href="/howtodonate.php" style="color:#8EB46A;">Donate</a>                    </li>
+
+                    
+                    <!-- Auth user menu dropdown -->
+                    
+                    <!-- Search menu dropdown -->
+                    <li class="dropdown"  id="quickSearchMenuDD">
+                        <a href="#" id="quickSearchMenuDD2" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <span style="font-size: 120%;" class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="padding: 0; border-top-left-radius: 4px;box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1); border: 1px solid rgba(0, 0, 0, .1);">
+                            <li>
+                                <form method="get" action="/s/" style="padding:20px;" name="quickSearch">
+                                    <input id="quickSearchInput" class="form-control" type="text" name="q" placeholder="Search for title, author, ISBN, publisher, md5.." style="border-radius: 4px; border: 1px solid #ddd; width:400px; padding: 6px 10px;height:40px;">
+                                    <button type="submit" style="display: none;"></button>
+                                </form>
+                            </li>
+                        </ul>
+                    </li>
+                    <script>
+                        $("#quickSearchMenuDD").on('shown.bs.dropdown', function(e){
+                            if(window.outerWidth > 768){
+                                $('#quickSearchInput').focus();
+                            }
+                        });
+                    </script>
+
+                    <!-- Admin menu dropdown -->
+                    <li class="dropdown">
+                        <a href="#" id="main-menu-dropdown" class="dropdown-toggle hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            <span style="font-size: 120%;" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span>
+                                                    </a>
+                        <ul class="dropdown-menu">
+                                                                                    <li class="dropdown-header">Books</li>
+                                                                                        <li><a href="/book-add.php">Add book</a></li>
+                                <li><a href="/request.php">Book requests</a>
+                                </li>
+                                <li><a href="/categories">Categories</a></li>
+                                <li><a href="/popular.php">Most Popular</a></li>
+                                                                                                                <li><a href="/recently.php">Recently Added</a></li>
+                                                        <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Z-Library Project</li>
+                            <li><a href="/top-zlibrarians.php">Top Z-Librarians</a></li>
+                            <li><a href="/blog/">Blog</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+$("#bs-example-navbar-collapse-1").on('shown.bs.collapse', function(e){
+    $('#main-menu-dropdown').dropdown('toggle');
+    $('#main-menu-dropdown').attr('data-toggle', ''); // make it static
+    
+
+    $("#quickSearchMenuDD2").dropdown('toggle');
+    $('#quickSearchMenuDD2').attr('data-toggle', ''); // make it static
+    //$('#main-menu-dropdown').attr('data-toggle', ''); // make it static
+
+    $("#profileMenu").dropdown('toggle');
+    $('#profileMenu').attr('data-toggle', ''); // make it static
+});
+
+const subdomainPrefix = '';
+const booksDomains = ["1lib.us","b-ok.cc","2lib.org","b-ok.xyz","3lib.net","4lib.org","1lib.limited"];
+const articlesDomains = ["booksc.org","art1lib.org","art1lib.com","booksc.me"];
+
+const domainCheckSuccess = (domain, mode) => {
+    $('.header-main-nav-link[data-mode="' + mode + '"]').attr('href', '//' + subdomainPrefix + domain)
+}
+
+const domainCheckError = (domain, mode) => {}
+
+DomainsChecker(booksDomains, domainCheckSuccess, domainCheckError, 'books')
+DomainsChecker(articlesDomains, domainCheckSuccess, domainCheckError, 'articles')
+</script>                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="g-page-content">
+                        <div class="container" style="max-width: 1000px;padding-bottom: 40px;">
+                            <div class="row">
+                                <div class="col-md-12 itemFullText">
+                                    <div id="searchFormWithLogo">
+    <div style="text-align: center;margin-top: 50px;">
+        <div style="font-size:52px; padding: 0 15px 0px 15px; line-height: 1;">
+            <a href="/" style="text-decoration:none;" id="logoText"><img src="/img/logo.zlibrary.png" style="width:300px;" alt="ZLibary" title="Z-Library"></a>
+        </div>
+        <div class="color4" style="color:#90A5A8;font-weight:400; padding:4px 0 15px 0;font-style: italic;">
+            Part of Z-Library project.            The world's largest ebook library        </div>
+    </div>
+        <div class="cBox1" id="messageBlock" style="margin:0 auto 15px auto; position: relative; padding-right: 50px;">
+        New post <a style="color:#333;" href="/blog/28">"The results of fundraising, book rating, and a new page of download history."</a> in our blog.        <a href="javascript://" data-message="b9cc" class="btnHideAnnouncement">&times;</a>
+    </div>
+
+<div id="merchantPopup" class="hidden">
+    <p>We are always looking for an opportunity to connect new payment methods for our users from different parts of the world.
+    <p>If you are professionally involved in payment processing or have the information about high-risk merchant, contact us via <a href="mailto:support@bookmail.org">support@bookmail.org</a> with the subject line <b>"High-risk merchant"</b>. We look forward to cooperate with you!
+    <p>Please refrain from emailing if you are not familiar with this topic.
+    <p>Thank you!
+    <div class="modal-footer">
+        <button class="btnCloseMerchantPopup">Close</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).on('click', '.btnShowMerchantPopup', function() {
+        const merchantModal = new ZLibraryModal({
+            element: 'merchantPopup',
+            container: 'zlibrary-modal-styled',
+        })
+        merchantModal.show()
+    })
+    $(document).on('click', '.btnCloseMerchantPopup', function() {
+        const merchantModal = new ZLibraryModal({
+            element: 'merchantPopup',
+            container: 'zlibrary-modal-styled',
+        })
+        merchantModal.hide()
+    })
+    $(document).on('click', '.btnHideAnnouncement', function() {
+        let cook = getCookie('hiddenMessages');
+        let hidden = cook ? JSON.parse(cook) : [];
+        let messageHash = $(this).data('message');
+
+        if (hidden.indexOf(messageHash) === -1) {
+            hidden.push($(this).data('message'))
+        }
+
+        setCookie('hiddenMessages', JSON.stringify(hidden), 31*24*60*60*1000)
+        $('#messageBlock').hide()
+    })
+</script>
+
+<style type="text/css">
+    .btnHideAnnouncement {
+        position: absolute;
+        right: 10px;
+        top: 8px;
+        font-size: 140%;
+        text-decoration: none;
+        color: #f0ad4e;
+        font-weight: bold;
+    }
+    .btnHideAnnouncement:hover { color: #ffda65; text-decoration: none; }
+</style>
+
+
+    <a name="s"></a>
+
+    <form method="get" id="searchForm" action="/s/">
+        <ul id="searchModeTabs">
+            <li class="active"><a href="">General Search</a></li>
+            <li class=""><a href="/fulltext/"  style="margin-left: -1px;">Fulltext Search</a></li>
+        </ul>
+
+        <div class="b-search-form hover">
+            <div class="b-search-input g-clearfix">
+                <div class="input">
+                    <input type="text" maxlength="200" name="q" id="searchFieldx" value="" placeholder="Search for title, author, ISBN, publisher, md5.." style="padding-right: 12px;">
+                </div>
+                <div class="button whiteShadow">
+                    <div class="inner">
+                        <button type="submit">
+                            <span class="hidden-xs">search</span>
+                            <span class="glyphicon glyphicon-search visible-xs-block"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="padding-bottom: 5px;">
+            <div id="advSearch-wrapper" style="margin-right: 25px;">
+                <div >
+                    <span id="advSearch-control" style="border-bottom: 1px dashed; color: #777;font-size: 14px;cursor:pointer;">Search options</span>
+                </div>
+                <div style="display:none;" id="advSearch">
+                                        <span class="input_wrap__checkbox mr-10">
+                        <input type="checkbox" name="e" value="1" id="ftcb" >
+                        <label for="ftcb">Exact matching</label>
+                    </span>
+                                        <div class="mr-10" id="wrapYearFrom"></div>
+                    <div class="mr-10" id="wrapYearTo"></div>
+                    <div class="mr-10" id="wrapLang"></div>
+                    <div class="mr-10" id="wrapExt"></div>
+                    <div class="search-settings-wrap">
+                        <div class="search-settings">
+                            <a href="#" class="saving-search-settings hidden"
+                               data-title_save="Save filters"
+                               data-title_saved="Saved"
+                               onclick="ZLibrarySearch.saveSearchSettings(); return false;">
+                               <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                   <path d="M0 2C0 0.89543 0.895431 0 2 0H32C33.1046 0 34 0.895431 34 2V32C34 33.1046 33.1046 34 32 34H2C0.89543 34 0 33.1046 0 32V2Z" fill="white"/>
+                                   <path class="svg__body" d="M13.6667 21.6667V17.6667H20.3333V21.6667H21.6667V14.2187L19.7813 12.3333H12.3333V21.6667H13.6667ZM11.6667 11H20.3333L23 13.6667V22.3333C23 22.5101 22.9298 22.6797 22.8047 22.8047C22.6797 22.9298 22.5101 23 22.3333 23H11.6667C11.4899 23 11.3203 22.9298 11.1953 22.8047C11.0702 22.6797 11 22.5101 11 22.3333V11.6667C11 11.4899 11.0702 11.3203 11.1953 11.1953C11.3203 11.0702 11.4899 11 11.6667 11ZM15 19V21.6667H19V19H15Z" fill="#49afd0"/>
+                                   <g class="svg__body-check-mark" transform="translate(18 18)">
+                                       <circle cx="4.5" cy="4.5" r="4" fill="white" stroke="#49AFD0"/>
+                                       <path d="M2.25 4.5L3.9375 6.1875L6.75 3.375" stroke="#49AFD0"/>
+                                   </g>
+                                   <path class="svg__border" d="M2 1H32V-1H2V1ZM33 2V32H35V2H33ZM32 33H2V35H32V33ZM1 32V2H-1V32H1ZM2 33C1.44772 33 1 32.5523 1 32H-1C-1 33.6569 0.343146 35 2 35V33ZM33 32C33 32.5523 32.5523 33 32 33V35C33.6569 35 35 33.6569 35 32H33ZM32 1C32.5523 1 33 1.44772 33 2H35C35 0.343146 33.6569 -1 32 -1V1ZM2 -1C0.343146 -1 -1 0.343146 -1 2H1C1 1.44772 1.44772 1 2 1V-1Z" fill="#D9D9D9"/>
+                               </svg>
+                            </a>
+                            <a href="#" class="clear-search-settings hidden"
+                               title="Reset filters"
+                               onclick="ZLibrarySearch.clearFilters(); return false;">
+                                <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0 2C0 0.89543 0.895431 0 2 0H32C33.1046 0 34 0.895431 34 2V32C34 33.1046 33.1046 34 32 34H2C0.89543 34 0 33.1046 0 32V2Z" fill="white"/>
+                                    <path class="svg__body" d="M17 16.0573L20.3 12.7573L21.2427 13.7L17.9427 17L21.2427 20.3L20.3 21.2427L17 17.9427L13.7 21.2427L12.7573 20.3L16.0573 17L12.7573 13.7L13.7 12.7573L17 16.0573Z" fill="#8C8C8C"/>
+                                    <path class="svg__border" d="M2 1H32V-1H2V1ZM33 2V32H35V2H33ZM32 33H2V35H32V33ZM1 32V2H-1V32H1ZM2 33C1.44772 33 1 32.5523 1 32H-1C-1 33.6569 0.343146 35 2 35V33ZM33 32C33 32.5523 32.5523 33 32 33V35C33.6569 35 35 33.6569 35 32H33ZM32 1C32.5523 1 33 1.44772 33 2H35C35 0.343146 33.6569 -1 32 -1V1ZM2 -1C0.343146 -1 -1 0.343146 -1 2H1C1 1.44772 1.44772 1 2 1V-1Z" fill="#D9D9D9"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                            <!-- fb like here -->
+                    </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById("searchFieldx").focus();
+
+    $("#searchForm").submit(function ()
+    {
+        $(this).children('select[value=""]').attr("disabled", "disabled");
+        $.each($("#searchForm select, #searchForm input"), function (key, value) {
+            if ($(this).val() == "") {
+                $(this).attr("disabled", "disabled");
+            }
+        });
+        return true;
+    });
+
+    $('#ftcb2').popover({
+        placement: 'bottom',
+        html: true
+    });
+
+    $('#ftcb1').popover({
+        placement: 'bottom',
+        html: true
+    });
+
+    function initializePopoverHelper() {
+        if ($('#ftcb').length) {
+            
+            if($('#ftcb').is(':checked')){
+                wordsContent = 'Search for books containing ALL specified terms ANYWHERE in the text. <div class="etcFt">..text text text <b>my</b> ..text text text text text .. <b>search</b> ..text text text text text.. <b>query</b>.. text text text <b>works</b> ..text text.. <b>good</b> text..</div>'
+                phraseContent = 'Search for books <i>exactly</i> match specified phrase. <div class="etcFt">..text text text text text text.. <b>my search query works good</b> ..text text text text text text text text text text text text..</div>'
+            }else{
+                wordsContent = 'Search for books containing <i>most of</i> specified terms (>75%) ANYWHERE in the text. <div class="etcFt">..text text text <b>my</b> ..text text text text text .. <b>search</b> ..text text text text text.. <b>query</b> ..text text.. <b>works</b> ..text text..</div>'
+                phraseContent = 'Search for books containing ALL specified words that are <i>next to each other</i> and in the <i>same order</i>. <div class="etcFt">..text text text text text text.. <b>my</b> long <b>search query</b> will <b>works good</b> ..text text text text text text text text text text text text..</div>'
+            }
+
+            $('#ftcb2').data('bs.popover').options.content = wordsContent;
+            $('#ftcb1').data('bs.popover').options.content = phraseContent;
+        }
+    }
+
+    $(function() {
+            });
+</script>
+
+<script>
+    $(function(){
+        new ZLibraryMultiselect({
+            wrapSelector: '#wrapYearFrom',
+            useTargetSelect: true,
+            valuesName: 'yearFrom',
+            sortType: 'number',
+            isReversSort: true,
+            placeholder: 'Year from',
+            textForNone: 'Any year',
+            rowData: {"items":[{"text":2021,"value":2021},{"text":2020,"value":2020},{"text":2019,"value":2019},{"text":2018,"value":2018},{"text":2017,"value":2017},{"text":2016,"value":2016},{"text":2015,"value":2015},{"text":2014,"value":2014},{"text":2013,"value":2013},{"text":2012,"value":2012},{"text":2011,"value":2011},{"text":2010,"value":2010},{"text":2009,"value":2009},{"text":2008,"value":2008},{"text":2007,"value":2007},{"text":2006,"value":2006},{"text":2005,"value":2005},{"text":2004,"value":2004},{"text":2003,"value":2003},{"text":2002,"value":2002},{"text":2001,"value":2001},{"text":2000,"value":2000},{"text":1999,"value":1999},{"text":1998,"value":1998},{"text":1997,"value":1997},{"text":1996,"value":1996},{"text":1995,"value":1995},{"text":1994,"value":1994},{"text":1993,"value":1993},{"text":1992,"value":1992},{"text":1991,"value":1991},{"text":1990,"value":1990},{"text":1989,"value":1989},{"text":1988,"value":1988},{"text":1987,"value":1987},{"text":1986,"value":1986},{"text":1985,"value":1985},{"text":1984,"value":1984},{"text":1983,"value":1983},{"text":1982,"value":1982},{"text":1981,"value":1981},{"text":1980,"value":1980},{"text":1979,"value":1979},{"text":1978,"value":1978},{"text":1977,"value":1977},{"text":1976,"value":1976},{"text":1975,"value":1975},{"text":1974,"value":1974},{"text":1973,"value":1973},{"text":1972,"value":1972},{"text":1971,"value":1971},{"text":1970,"value":1970},{"text":1969,"value":1969},{"text":1968,"value":1968},{"text":1967,"value":1967},{"text":1966,"value":1966},{"text":1965,"value":1965},{"text":1964,"value":1964},{"text":1963,"value":1963},{"text":1962,"value":1962},{"text":1961,"value":1961},{"text":1960,"value":1960},{"text":1959,"value":1959},{"text":1958,"value":1958},{"text":1957,"value":1957},{"text":1956,"value":1956},{"text":1955,"value":1955},{"text":1954,"value":1954},{"text":1953,"value":1953},{"text":1952,"value":1952},{"text":1951,"value":1951},{"text":1950,"value":1950},{"text":1949,"value":1949},{"text":1948,"value":1948},{"text":1947,"value":1947},{"text":1946,"value":1946},{"text":1945,"value":1945},{"text":1944,"value":1944},{"text":1943,"value":1943},{"text":1942,"value":1942},{"text":1941,"value":1941},{"text":1940,"value":1940},{"text":1939,"value":1939},{"text":1938,"value":1938},{"text":1937,"value":1937},{"text":1936,"value":1936},{"text":1935,"value":1935},{"text":1934,"value":1934},{"text":1933,"value":1933},{"text":1932,"value":1932},{"text":1931,"value":1931},{"text":1930,"value":1930},{"text":1929,"value":1929},{"text":1928,"value":1928},{"text":1927,"value":1927},{"text":1926,"value":1926},{"text":1925,"value":1925},{"text":1924,"value":1924},{"text":1923,"value":1923},{"text":1922,"value":1922},{"text":1921,"value":1921},{"text":1920,"value":1920},{"text":1919,"value":1919},{"text":1918,"value":1918},{"text":1917,"value":1917},{"text":1916,"value":1916},{"text":1915,"value":1915},{"text":1914,"value":1914},{"text":1913,"value":1913},{"text":1912,"value":1912},{"text":1911,"value":1911},{"text":1910,"value":1910},{"text":1909,"value":1909},{"text":1908,"value":1908},{"text":1907,"value":1907},{"text":1906,"value":1906},{"text":1905,"value":1905},{"text":1904,"value":1904},{"text":1903,"value":1903},{"text":1902,"value":1902},{"text":1901,"value":1901},{"text":1900,"value":1900},{"text":1899,"value":1899},{"text":1898,"value":1898},{"text":1897,"value":1897},{"text":1896,"value":1896},{"text":1895,"value":1895},{"text":1894,"value":1894},{"text":1893,"value":1893},{"text":1892,"value":1892},{"text":1891,"value":1891},{"text":1890,"value":1890},{"text":1889,"value":1889},{"text":1888,"value":1888},{"text":1887,"value":1887},{"text":1886,"value":1886},{"text":1885,"value":1885},{"text":1884,"value":1884},{"text":1883,"value":1883},{"text":1882,"value":1882},{"text":1881,"value":1881},{"text":1880,"value":1880},{"text":1879,"value":1879},{"text":1878,"value":1878},{"text":1877,"value":1877},{"text":1876,"value":1876},{"text":1875,"value":1875},{"text":1874,"value":1874},{"text":1873,"value":1873},{"text":1872,"value":1872},{"text":1871,"value":1871},{"text":1870,"value":1870},{"text":1869,"value":1869},{"text":1868,"value":1868},{"text":1867,"value":1867},{"text":1866,"value":1866},{"text":1865,"value":1865},{"text":1864,"value":1864},{"text":1863,"value":1863},{"text":1862,"value":1862},{"text":1861,"value":1861},{"text":1860,"value":1860},{"text":1859,"value":1859},{"text":1858,"value":1858},{"text":1857,"value":1857},{"text":1856,"value":1856},{"text":1855,"value":1855},{"text":1854,"value":1854},{"text":1853,"value":1853},{"text":1852,"value":1852},{"text":1851,"value":1851},{"text":1850,"value":1850},{"text":1849,"value":1849},{"text":1848,"value":1848},{"text":1847,"value":1847},{"text":1846,"value":1846},{"text":1845,"value":1845},{"text":1844,"value":1844},{"text":1843,"value":1843},{"text":1842,"value":1842},{"text":1841,"value":1841},{"text":1840,"value":1840},{"text":1839,"value":1839},{"text":1838,"value":1838},{"text":1837,"value":1837},{"text":1836,"value":1836},{"text":1835,"value":1835},{"text":1834,"value":1834},{"text":1833,"value":1833},{"text":1832,"value":1832},{"text":1831,"value":1831},{"text":1830,"value":1830},{"text":1829,"value":1829},{"text":1828,"value":1828},{"text":1827,"value":1827},{"text":1826,"value":1826},{"text":1825,"value":1825},{"text":1824,"value":1824},{"text":1823,"value":1823},{"text":1822,"value":1822},{"text":1821,"value":1821},{"text":1820,"value":1820},{"text":1819,"value":1819},{"text":1818,"value":1818},{"text":1817,"value":1817},{"text":1816,"value":1816},{"text":1815,"value":1815},{"text":1814,"value":1814},{"text":1813,"value":1813},{"text":1812,"value":1812},{"text":1811,"value":1811},{"text":1810,"value":1810},{"text":1809,"value":1809},{"text":1808,"value":1808},{"text":1807,"value":1807},{"text":1806,"value":1806},{"text":1805,"value":1805},{"text":1804,"value":1804},{"text":1803,"value":1803},{"text":1802,"value":1802},{"text":1801,"value":1801},{"text":1800,"value":1800}],"selected":[]},
+        });
+
+        new ZLibraryMultiselect({
+            wrapSelector: '#wrapYearTo',
+            useTargetSelect: true,
+            valuesName: 'yearTo',
+            sortType: 'number',
+            isReversSort: true,
+            placeholder: 'Year to',
+            textForNone: 'Any year',
+            rowData: {"items":[{"text":2021,"value":2021},{"text":2020,"value":2020},{"text":2019,"value":2019},{"text":2018,"value":2018},{"text":2017,"value":2017},{"text":2016,"value":2016},{"text":2015,"value":2015},{"text":2014,"value":2014},{"text":2013,"value":2013},{"text":2012,"value":2012},{"text":2011,"value":2011},{"text":2010,"value":2010},{"text":2009,"value":2009},{"text":2008,"value":2008},{"text":2007,"value":2007},{"text":2006,"value":2006},{"text":2005,"value":2005},{"text":2004,"value":2004},{"text":2003,"value":2003},{"text":2002,"value":2002},{"text":2001,"value":2001},{"text":2000,"value":2000},{"text":1999,"value":1999},{"text":1998,"value":1998},{"text":1997,"value":1997},{"text":1996,"value":1996},{"text":1995,"value":1995},{"text":1994,"value":1994},{"text":1993,"value":1993},{"text":1992,"value":1992},{"text":1991,"value":1991},{"text":1990,"value":1990},{"text":1989,"value":1989},{"text":1988,"value":1988},{"text":1987,"value":1987},{"text":1986,"value":1986},{"text":1985,"value":1985},{"text":1984,"value":1984},{"text":1983,"value":1983},{"text":1982,"value":1982},{"text":1981,"value":1981},{"text":1980,"value":1980},{"text":1979,"value":1979},{"text":1978,"value":1978},{"text":1977,"value":1977},{"text":1976,"value":1976},{"text":1975,"value":1975},{"text":1974,"value":1974},{"text":1973,"value":1973},{"text":1972,"value":1972},{"text":1971,"value":1971},{"text":1970,"value":1970},{"text":1969,"value":1969},{"text":1968,"value":1968},{"text":1967,"value":1967},{"text":1966,"value":1966},{"text":1965,"value":1965},{"text":1964,"value":1964},{"text":1963,"value":1963},{"text":1962,"value":1962},{"text":1961,"value":1961},{"text":1960,"value":1960},{"text":1959,"value":1959},{"text":1958,"value":1958},{"text":1957,"value":1957},{"text":1956,"value":1956},{"text":1955,"value":1955},{"text":1954,"value":1954},{"text":1953,"value":1953},{"text":1952,"value":1952},{"text":1951,"value":1951},{"text":1950,"value":1950},{"text":1949,"value":1949},{"text":1948,"value":1948},{"text":1947,"value":1947},{"text":1946,"value":1946},{"text":1945,"value":1945},{"text":1944,"value":1944},{"text":1943,"value":1943},{"text":1942,"value":1942},{"text":1941,"value":1941},{"text":1940,"value":1940},{"text":1939,"value":1939},{"text":1938,"value":1938},{"text":1937,"value":1937},{"text":1936,"value":1936},{"text":1935,"value":1935},{"text":1934,"value":1934},{"text":1933,"value":1933},{"text":1932,"value":1932},{"text":1931,"value":1931},{"text":1930,"value":1930},{"text":1929,"value":1929},{"text":1928,"value":1928},{"text":1927,"value":1927},{"text":1926,"value":1926},{"text":1925,"value":1925},{"text":1924,"value":1924},{"text":1923,"value":1923},{"text":1922,"value":1922},{"text":1921,"value":1921},{"text":1920,"value":1920},{"text":1919,"value":1919},{"text":1918,"value":1918},{"text":1917,"value":1917},{"text":1916,"value":1916},{"text":1915,"value":1915},{"text":1914,"value":1914},{"text":1913,"value":1913},{"text":1912,"value":1912},{"text":1911,"value":1911},{"text":1910,"value":1910},{"text":1909,"value":1909},{"text":1908,"value":1908},{"text":1907,"value":1907},{"text":1906,"value":1906},{"text":1905,"value":1905},{"text":1904,"value":1904},{"text":1903,"value":1903},{"text":1902,"value":1902},{"text":1901,"value":1901},{"text":1900,"value":1900},{"text":1899,"value":1899},{"text":1898,"value":1898},{"text":1897,"value":1897},{"text":1896,"value":1896},{"text":1895,"value":1895},{"text":1894,"value":1894},{"text":1893,"value":1893},{"text":1892,"value":1892},{"text":1891,"value":1891},{"text":1890,"value":1890},{"text":1889,"value":1889},{"text":1888,"value":1888},{"text":1887,"value":1887},{"text":1886,"value":1886},{"text":1885,"value":1885},{"text":1884,"value":1884},{"text":1883,"value":1883},{"text":1882,"value":1882},{"text":1881,"value":1881},{"text":1880,"value":1880},{"text":1879,"value":1879},{"text":1878,"value":1878},{"text":1877,"value":1877},{"text":1876,"value":1876},{"text":1875,"value":1875},{"text":1874,"value":1874},{"text":1873,"value":1873},{"text":1872,"value":1872},{"text":1871,"value":1871},{"text":1870,"value":1870},{"text":1869,"value":1869},{"text":1868,"value":1868},{"text":1867,"value":1867},{"text":1866,"value":1866},{"text":1865,"value":1865},{"text":1864,"value":1864},{"text":1863,"value":1863},{"text":1862,"value":1862},{"text":1861,"value":1861},{"text":1860,"value":1860},{"text":1859,"value":1859},{"text":1858,"value":1858},{"text":1857,"value":1857},{"text":1856,"value":1856},{"text":1855,"value":1855},{"text":1854,"value":1854},{"text":1853,"value":1853},{"text":1852,"value":1852},{"text":1851,"value":1851},{"text":1850,"value":1850},{"text":1849,"value":1849},{"text":1848,"value":1848},{"text":1847,"value":1847},{"text":1846,"value":1846},{"text":1845,"value":1845},{"text":1844,"value":1844},{"text":1843,"value":1843},{"text":1842,"value":1842},{"text":1841,"value":1841},{"text":1840,"value":1840},{"text":1839,"value":1839},{"text":1838,"value":1838},{"text":1837,"value":1837},{"text":1836,"value":1836},{"text":1835,"value":1835},{"text":1834,"value":1834},{"text":1833,"value":1833},{"text":1832,"value":1832},{"text":1831,"value":1831},{"text":1830,"value":1830},{"text":1829,"value":1829},{"text":1828,"value":1828},{"text":1827,"value":1827},{"text":1826,"value":1826},{"text":1825,"value":1825},{"text":1824,"value":1824},{"text":1823,"value":1823},{"text":1822,"value":1822},{"text":1821,"value":1821},{"text":1820,"value":1820},{"text":1819,"value":1819},{"text":1818,"value":1818},{"text":1817,"value":1817},{"text":1816,"value":1816},{"text":1815,"value":1815},{"text":1814,"value":1814},{"text":1813,"value":1813},{"text":1812,"value":1812},{"text":1811,"value":1811},{"text":1810,"value":1810},{"text":1809,"value":1809},{"text":1808,"value":1808},{"text":1807,"value":1807},{"text":1806,"value":1806},{"text":1805,"value":1805},{"text":1804,"value":1804},{"text":1803,"value":1803},{"text":1802,"value":1802},{"text":1801,"value":1801},{"text":1800,"value":1800}],"selected":[]},
+        });
+
+                new ZLibraryMultiselect({
+            wrapSelector: '#wrapLang',
+            useTargetSelect: true,
+            type: 'multiple',
+            valuesName: 'languages',
+            placeholder: 'Select languages',
+            placeholderFull: 'languages selected',
+            textForNone: 'Any Language',
+            rowData: {
+                groups: [
+                    {
+                        name: 'popular',
+                        items: [{"text":"Chinese","value":"chinese"},{"text":"Dutch","value":"dutch"},{"text":"English","value":"english"},{"text":"French","value":"french"},{"text":"German","value":"german"},{"text":"Italian","value":"italian"},{"text":"Portuguese","value":"portuguese"},{"text":"Russian","value":"russian"},{"text":"Spanish","value":"spanish"}],
+                        selected: [],
+                    },
+                ],
+                items: [{"text":"Afrikaans","value":"afrikaans"},{"text":"Albanian","value":"albanian"},{"text":"Arabic","value":"arabic"},{"text":"Armenian","value":"armenian"},{"text":"Azerbaijani","value":"azerbaijani"},{"text":"Bashkir","value":"bashkir"},{"text":"Belarusian","value":"belarusian"},{"text":"Bengali","value":"bengali"},{"text":"Berber","value":"berber"},{"text":"Bulgarian","value":"bulgarian"},{"text":"Catalan","value":"catalan"},{"text":"Crimean Tatar","value":"crimean"},{"text":"Croatian","value":"croatian"},{"text":"Czech","value":"czech"},{"text":"Danish","value":"danish"},{"text":"Esperanto","value":"esperanto"},{"text":"Estonian","value":"estonian"},{"text":"Finnish","value":"finnish"},{"text":"Georgian","value":"georgian"},{"text":"Greek","value":"greek"},{"text":"Gujarati","value":"gujarati"},{"text":"Hebrew","value":"hebrew"},{"text":"Hindi","value":"hindi"},{"text":"Hungarian","value":"hungarian"},{"text":"Icelandic","value":"icelandic"},{"text":"Indigenous","value":"indigenous"},{"text":"Indonesian","value":"indonesian"},{"text":"Japanese","value":"japanese"},{"text":"Kannada","value":"kannada"},{"text":"Kazakh","value":"kazakh"},{"text":"Kirghiz","value":"kirghiz"},{"text":"Korean","value":"korean"},{"text":"Latin","value":"latin"},{"text":"Latvian","value":"latvian"},{"text":"Lithuanian","value":"lithuanian"},{"text":"Malayalam","value":"malayalam"},{"text":"Marathi","value":"marathi"},{"text":"Mongolian","value":"mongolian"},{"text":"Nepali","value":"nepali"},{"text":"Norwegian","value":"norwegian"},{"text":"Odia","value":"odia"},{"text":"Persian","value":"persian"},{"text":"Polish","value":"polish"},{"text":"Romanian","value":"romanian"},{"text":"Sanskrit","value":"sanskrit"},{"text":"Serbian","value":"serbian"},{"text":"Sinhala","value":"sinhala"},{"text":"Slovak","value":"slovak"},{"text":"Slovenian","value":"slovenian"},{"text":"Somali","value":"somali"},{"text":"Swahili","value":"swahili"},{"text":"Swedish","value":"swedish"},{"text":"Tajik","value":"tajik"},{"text":"Tamil","value":"tamil"},{"text":"Tatar","value":"tatar"},{"text":"Telugu","value":"telugu"},{"text":"Thai","value":"thai"},{"text":"Turkish","value":"turkish"},{"text":"Ukrainian","value":"ukrainian"},{"text":"Urdu","value":"urdu"},{"text":"Uzbek","value":"uzbek"},{"text":"Vietnamese","value":"vietnamese"}],
+                selected: [],
+            },
+        });
+
+        new ZLibraryMultiselect({
+            wrapSelector: '#wrapExt',
+            useTargetSelect: true,
+            type: 'multiple',
+            valuesName: 'extensions',
+            placeholder: 'Select extensions',
+            placeholderFull: 'extensions selected',
+            textForNone: 'Any extension',
+            rowData: {"items":[{"text":"txt","value":"txt"},{"text":"pdf","value":"pdf"},{"text":"fb2","value":"fb2"},{"text":"epub","value":"epub"},{"text":"lit","value":"lit"},{"text":"mobi","value":"mobi"},{"text":"rtf","value":"rtf"},{"text":"djv","value":"djv"},{"text":"djvu","value":"djvu"},{"text":"azw","value":"azw"},{"text":"azw3","value":"azw3"}],"selected":[]},
+        });
+        
+                ZLibrarySearch.init();
+    });
+</script><h2 class="color1" style="margin-top:20px;">Most Popular</h2>
+<div style="background: #49AFD0; height:2px; width: 100%; margin-bottom: 20px;">&nbsp;</div>
+
+<div id="bMosaicBox" style="display:none">
+        <div class="brick checkBookDownloaded" data-book_id="4649171" data-isbn="978-1471156267" style="width:20%;">
+            <a href="/book/4649171/371aea?dsource=mostpopular" title="It Ends with Us">
+                <img src="https://covers.zlibcdn2.com/covers299/books/b5/0b/2c/b50b2c576b8ad44ae37874ccbfd61551.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3645275" data-isbn="9787559415103" style="width:20%;">
+            <a href="/book/3645275/56a9f1?dsource=mostpopular" title="深度思考:不断逼近问题的本质">
+                <img src="https://covers.zlibcdn2.com/covers299/books/86/e9/50/86e95088e2c56a3528fcbbfa32ad708e.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3407120" data-isbn="978-0393614022" style="width:20%;">
+            <a href="/book/3407120/4c2340?dsource=mostpopular" title="Biochemistry">
+                <img src="https://covers.zlibcdn2.com/covers299/books/a6/e7/db/a6e7db753d6009801e1fa5398a3d1db1.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="5002304" data-isbn="9780374311544" style="width:20%;">
+            <a href="/book/5002304/e099b3?dsource=mostpopular" title="We Hunt the Flame ">
+                <img src="https://covers.zlibcdn2.com/covers299/books/de/5a/a4/de5aa4ebcaf144ef969762dd311b4931.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="4508313" data-isbn="978-1501161933" style="width:20%;">
+            <a href="/book/4508313/a859cf?dsource=mostpopular" title="The Seven Husbands of Evelyn Hugo: A Novel">
+                <img src="https://covers.zlibcdn2.com/covers299/books/b9/8d/45/b98d45aa05f3ddf848de8d30a0ac823e.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3679038" data-isbn="9780323393041" style="width:20%;">
+            <a href="/book/3679038/8819de?dsource=mostpopular" title="Gray’s Anatomy for Students">
+                <img src="https://covers.zlibcdn2.com/covers299/books/e2/21/28/e22128c1e5195027af1c43e1bda666e1.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="1712112" data-isbn="9780062085504" style="width:20%;">
+            <a href="/book/1712112/ce21fd?dsource=mostpopular" title="Shatter Me">
+                <img src="https://covers.zlibcdn2.com/covers299/books/5f/08/98/5f0898770d0cb42d21cd91f55eab70ea.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="487050" data-isbn="9780470017739" style="width:20%;">
+            <a href="/book/487050/71a13a?dsource=mostpopular" title="The Complete Book of Intelligence Tests: 500 Exercises to Improve, Upgrade and Enhance Your Mind Strength">
+                <img src="https://covers.zlibcdn2.com/covers299/books/8c/99/93/8c999364f28ece9be1ac30942f07cd09.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3701029" data-isbn="9787508638492" style="width:20%;">
+            <a href="/book/3701029/05cd1f?dsource=mostpopular" title="贫穷的本质：我们为什么摆脱不了贫穷">
+                <img src="https://covers.zlibcdn2.com/covers299/books/dc/e1/ef/dce1efc76c13e55c36f401308fb46fd3.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3991993" data-isbn="9781619634459" style="width:20%;">
+            <a href="/book/3991993/5d41a1?dsource=mostpopular" title="A Court of Thorns and Roses">
+                <img src="https://covers.zlibcdn2.com/covers299/books/2d/3c/94/2d3c9478286f0830af1ed48007f18191.png" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="874872" data-isbn="9781593393823" style="width:20%;">
+            <a href="/book/874872/45f62c?dsource=mostpopular" title="Britannica Illustrated Science Library">
+                <img src="https://covers.zlibcdn2.com/covers299/books/f3/9b/76/f39b760d3ff5554794ae5c3bcddb2caf.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3557419" data-isbn="" style="width:20%;">
+            <a href="/book/3557419/5b2b8c?dsource=mostpopular" title="101 Essays That Will Change The Way You Think">
+                <img src="https://covers.zlibcdn2.com/covers299/books/09/a5/ad/09a5ad873ac0ce78590275bc00785dc0.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3058363" data-isbn="" style="width:20%;">
+            <a href="/book/3058363/ceb28f?dsource=mostpopular" title="Python Scripts for ABAQUS: Learn by Example">
+                <img src="https://covers.zlibcdn2.com/covers299/books/ae/00/1d/ae001ddc6064864239cb3ed17910d78a.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="11599480" data-isbn="9781526602312" style="width:20%;">
+            <a href="/book/11599480/0b1302?dsource=mostpopular" title="A Court of Silver Flames">
+                <img src="https://covers.zlibcdn2.com/covers299/books/ce/a2/6b/cea26bd1f9fe60ad8f33a848dd15c4ca.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3491184" data-isbn="9781945186486" style="width:20%;">
+            <a href="/book/3491184/e024ab?dsource=mostpopular" title="The Art of Public Speaking: The Original Tool for Improving Public Oration">
+                <img src="https://covers.zlibcdn2.com/covers299/books/85/fb/11/85fb11ee24a833f0ce6e76ccd0f12d66.png" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="846387" data-isbn="" style="width:20%;">
+            <a href="/book/846387/abca83?dsource=mostpopular" title="Norwegian Wood">
+                <img src="https://covers.zlibcdn2.com/covers299/books/6d/e2/9c/6de29c0a3beee37a9310ccf7f91069a7.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="3750926" data-isbn="978-0-8050-9460-2" style="width:20%;">
+            <a href="/book/3750926/56e8ae?dsource=mostpopular" title="Siege and Storm">
+                <img src="https://covers.zlibcdn2.com/covers299/books/8e/36/79/8e3679971b22ad6a420e91ec4a028373.png" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="4952430" data-isbn="978-1501193323" style="width:20%;">
+            <a href="/book/4952430/e7ad5f?dsource=mostpopular" title="All Your Perfects">
+                <img src="https://covers.zlibcdn2.com/covers299/books/c3/1f/47/c31f474becda2c6953c6c7c83e705d88.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="4291131" data-isbn="9781518783876" style="width:20%;">
+            <a href="/book/4291131/441a20?dsource=mostpopular" title="Corrupt (Devil's Night #1)">
+                <img src="https://covers.zlibcdn2.com/covers299/books/b7/a7/29/b7a7297ef1d23186f00155d3101ff7bc.png" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div>
+        <div class="brick checkBookDownloaded" data-book_id="5376477" data-isbn="b988feac-f1e9-4b57-84b1-bbb7ce57560d" style="width:20%;">
+            <a href="/book/5376477/b5f1e7?dsource=mostpopular" title="Dance of Thieves">
+                <img src="https://covers.zlibcdn2.com/covers299/books/b6/aa/a1/b6aaa1e3ff27bbf055c56b279dda5f4c.jpg" class="bMosaicCover bgrid-item item" width="100%"/>
+            </a>
+        </div></div>    <script type="text/javascript" src="/resources/ext/freewall.js"></script>
+<script>
+    $(function () {
+        $('#bMosaicBox').css('display', 'block');
+
+        var wall = new Freewall('#bMosaicBox');
+        wall.reset({
+            selector: '.brick',
+            keepOrder: true,
+            //animate: true,
+            cellW: $($('.brick')[0]).outerWidth(),
+            cellH: 'auto',
+            gutterX: 8,
+            gutterY: 8,
+            fixSize: false,
+            onResize: function () {
+                wall.fitWidth();
+            }
+        });
+
+        wall.container.find('img').load(function () {
+            wall.fitWidth();
+        });
+
+        wall.fitWidth();
+    });
+</script>
+<div style="text-align: right; font-size: 120%;margin: 20px 0 0 0;"><a href="popular.php" class="color1">See More &gt;&gt;</a></div>                                                                    </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr style="height:60px">
+                    <td id="footer" valign="top">
+                        <div class="container-fluid">
+<!-- footer begin -->
+<div class="row">
+    <div class="col-sm-7 footer-copyright">
+        <i>
+            Free ebooks since 2009.
+            <a class="footer-mailto" href="mailto: support@bookmail.org">
+                support@bookmail.org            </a>
+        </i>
+
+        <span class="hidden-xs" style="margin:0 0 0 15px;"> <a href="/faq.php">FAQ</a></span>
+        <span class="hidden-xs" style="margin:0 0 0 15px; position: relative;"> <a href="/blog/">Blog</a></span>
+    </div>
+
+    <div class="col-sm-5">
+        <div class="pull-right footer-nav-right" role="navigation">
+            <ul class="nav navbar-nav">
+                <li class="visible-xs-block"><a href="/faq.php">FAQ</a></li>
+                <li class="visible-xs-block"><a href="/blog/">Blog</a></li>
+                                <li><a href="/privacy.php">Privacy</a></li>
+                <li><a href="/dmca.php">DMCA</a></li>
+                <li class="dropup" style="white-space: nowrap;">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">English <span class="caret"></span></a>
+                    <ul class="dropdown-menu language-list">
+                        <li><a href="//1lib.us/?">English</a></li><li><a href="//ru.1lib.us/?">Русский</a></li><li><a href="//es.1lib.us/?">Español</a></li><li><a href="//it.1lib.us/?">Italiano</a></li><li><a href="//el.1lib.us/?">ελληνικά</a></li><li><a href="//ar.1lib.us/?">اللغة العربية</a></li><li><a href="//id.1lib.us/?">Bahasa Indonesia</a></li><li><a href="//my.1lib.us/?">Bahasa Malaysia</a></li><li><a href="//in.1lib.us/?">हिन्दी</a></li><li><a href="//de.1lib.us/?">Deutsch</a></li><li><a href="//fr.1lib.us/?">Français</a></li><li><a href="//pt.1lib.us/?">Português</a></li><li><a href="//ua.1lib.us/?">Українська</a></li><li><a href="//pl.1lib.us/?">Polski</a></li><li><a href="//zh.1lib.us/?">汉语</a></li><li><a href="//jp.1lib.us/?">日本語</a></li><li><a href="//vn.1lib.us/?">Tiếng Việt</a></li><li><a href="//az.1lib.us/?">Azərbaycan Dili</a></li><li><a href="//am.1lib.us/?">Հայոց լեզու</a></li><li><a href="//th.1lib.us/?">ภาษาไทย</a></li><li><a href="//tr.1lib.us/?">Türk Dili</a></li><li><a href="//ge.1lib.us/?">ქართველი</a></li><li><a href="//bd.1lib.us/?">বাংলা</a></li><li><a href="//af.1lib.us/?">پښتو</a></li><li><a href="//te.1lib.us/?">తెలుగు</a></li><li><a href="//ur.1lib.us/?">اردو</a></li><li><a href="//kr.1lib.us/?">한국어</a></li><li><a href="//rs.1lib.us/?">Srpsku</a></li>                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="modal fade" id="zlibrary-modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header hidden">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body" style="position: relative; min-height: 80px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="zlibrary-modal-styled" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header hidden">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h1 class="modal-title"></h1>
+                    </div>
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="zlibrary-modal-auth" tabindex="-1" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ggAdditionalHtml -->
+        <!--LiveInternet counter--><script type="text/javascript">
+new Image().src = "//counter.yadro.ru/hit;bookzz?r"+
+escape(document.referrer)+((typeof(screen)=="undefined")?"":
+";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
+screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
+";"+Math.random();</script><!--/LiveInternet-->
+
+<iframe name="uploader" id="uploader" style="border:0px solid #ddd; width:90%; display:none;"></iframe><script></script>        <!-- /ggAdditionalHtml -->
+        
+                
+        <script>
+            if (typeof pagerOptions !== "undefined" && pagerOptions) {
+                $('div.paginator').paginator(pagerOptions);
+            }
+        </script>
+    </body>
+</html>
+
+https://1lib.us/
