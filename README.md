@@ -78,12 +78,17 @@ Basic Features
 - Delete cookie - Remove cookie in cookie file
 - Request a URL - Press \b and type get [url]" followed by enter, where the url does not contain the protocol (https://)
 - Click link - Search for \<link number\> and press \g
+- Submitting a form - Search for \<link number\>, modify parameters as desired, then press \p to perform a post request and \g to perform a get request. See Warning.
 
 For more features read the vi manpage.
 
 Untested Features
 -----------------
 There is support for textarea elements, but this has yet to be tested. File upload is also supported via curl's -F option, but this is also untested.
+
+Warning
+-------
+When using --data-urlencode in curl, the @ symbol in GET or POST parameters allows a malicious server to upload an arbitary file. 
  
 Other useful functions
 ----------------------
