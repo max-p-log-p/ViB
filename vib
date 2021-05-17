@@ -22,7 +22,7 @@ class ViB(HTMLParser):
 			ViB.form[0] = f'{attr2url(attrs.get("action", ""))} '
 			ViB.form[1] = attrs.get('method', 'get')
 		elif tag in ViB.input_tags and 'name' in attrs.keys():
-			ViB.form[0] += f'{attrs["name"]}=&'
+			ViB.form[0] += f'{attrs["name"]}={attrs.get("value", "")}&'
 		elif tag in ViB.bad.keys():
 			ViB.bad[tag] = True
 
