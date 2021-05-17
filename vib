@@ -2,13 +2,10 @@
 import sys
 from html.parser import HTMLParser
 
-urls = []
-
 def attr2url(attr):
 	if attr.startswith('https://') or attr.startswith('http://') or attr.startswith('//'):
 		return f'{attr.split("//", maxsplit=1)[1]}'
-	else:
-		return f'{urls[0][0]}{attr}' if attr.startswith('/') else f'{urls[1]}/{attr}'
+	return f'{urls[0][0]}{attr}' if attr.startswith('/') else f'{urls[1]}/{attr}'
 
 class ViB(HTMLParser):
 	bad = {'script': False, 'style': False}
@@ -24,7 +21,7 @@ class ViB(HTMLParser):
 			ViB.form[0] = f'{attr2url(attrs.get("action", ""))} '
 			ViB.form[1] = attrs.get('method', 'get')
 		elif tag in ViB.input_tags and 'name' in attrs.keys():
-			ViB.form[0] += f'{attrs["name"]}={attrs.get("value", "")}&'
+			ViB.form[0] += f'{attrs["name"]}=&'
 		elif tag in ViB.bad.keys():
 			ViB.bad[tag] = True
 
@@ -32,16 +29,17 @@ class ViB(HTMLParser):
 		if tag in ViB.bad.keys():
 			ViB.bad[tag] = False
 		elif tag == 'form' and ViB.form[0] != ' ':
-			print(f'\033{len(urls)}{ViB.form[1]}\035 {ViB.form[0].split(" ")[0]}')
+			print(f'\033{len(urls)}\035 {ViB.form[0].split(" ")[0]} {ViB.form[1]}')
 			urls.append(f'{ViB.form[0][:-1]}')
 
 	def handle_data(self, data):
 		if not (True in ViB.bad.values()):
 			print(data)
 
-sys.stdin.reconfigure(errors='ignore')
 parser = ViB()
+sys.stdin.reconfigure(errors='ignore')
 input = sys.stdin.readlines()
+urls = []
 urls.append(input[-1].split('://', maxsplit=1)[1].split('/'))
 urls.append('/'.join(urls[0][:-1]))
 parser.feed('\n'.join(input[:-1]))
