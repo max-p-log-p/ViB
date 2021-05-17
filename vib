@@ -3,6 +3,7 @@ import sys
 from html.parser import HTMLParser
 
 def attr2url(attr):
+	attr = attr.replace(' ', '')
 	if attr.startswith('https://') or attr.startswith('http://') or attr.startswith('//'):
 		return f'{attr.split("//", maxsplit=1)[1]}'
 	return f'{urls[0][0]}{attr}' if attr.startswith('/') else f'{urls[1]}/{attr}'
