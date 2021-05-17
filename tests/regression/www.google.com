@@ -29,7 +29,7 @@ Google apps
 <6> www.google.com/intl/en/about/products
 <7> accounts.google.com/ServiceLogin?hl=en&passive=true&continue=https://www.google.com/%3F&ec=GAZAmgQ
 <8> www.google.com/#
-<9> www.google.com/search q=&btnK=&btnI=&btnK=&btnI=&source=&ei=&iflsig=
+<9> www.google.com/search q=&btnK=Google Search&btnI=I'm Feeling Lucky&btnK=Google Search&btnI=I'm Feeling Lucky&source=hp&ei=c1iiYJYsw5RrpdKOyAE&iflsig=AINFCbYAAAAAYKJmg71-VfDlvKL8HP1Vg7KfsBvGybaD
 <10> www.google.com/intl/en_us/ads/?subid=ww-ww-et-g-awa-a-g_hpafoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpafooter&fg=1
 <11> www.google.com/services/?subid=ww-ww-et-g-awa-a-g_hpbfoot1_1!o2&utm_source=google.com&utm_medium=referral&utm_campaign=google_hpbfooter&fg=1
 <12> google.com/search/howsearchworks/?fg=1
