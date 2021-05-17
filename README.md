@@ -88,7 +88,7 @@ There is support for textarea elements, but this has yet to be tested. File uplo
 
 Warning
 -------
-When using --data-urlencode in curl, the @ symbol in GET or POST parameters allows a malicious server to upload an arbitary file. 
+When using --data-urlencode in curl, the @ symbol in GET or POST parameters allows a malicious server to upload an arbitary file. However, this does not seem to be exploitable since if curl detects the = character it does not interpret it as a filename.
  
 Other useful functions
 ----------------------
