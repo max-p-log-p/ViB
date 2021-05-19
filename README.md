@@ -34,8 +34,8 @@ Make sure the names of these functions do not collide with the names of any exis
 Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-R:
 
 map \b :%!bash -ic '
-map \g yw:%!tail -n" \| bash -ic 'get "$(head -n1)"'<CR>
-map \p yw:%!tail -n" \| bash -ic 'post "$(head -n1)"'<CR>
+map \g yw:%!tail -n^R" \| bash -ic 'get "$(head -n1)"'<CR>
+map \p yw:%!tail -n^R" \| bash -ic 'post "$(head -n1)"'<CR>
 map \h :%!curl -L https://$(tail -n 1)<CR>
 
 These mappings will not work by default in a text editor like nvi.
