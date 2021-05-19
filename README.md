@@ -13,13 +13,17 @@ Add the following functions to your ~/.bashrc file:
 
 function get { 
 	url="$(echo "$1" | cut -d' ' -f1)"
+
 	data="$(echo "$1" | cut -d' ' -f2- -s)"
+
 	curl --compressed -G -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
 }
 
 function post { 
 	url="$(echo "$1" | cut -d' ' -f1)"
+
 	data="$(echo "$1" | cut -d' ' -f2- -s)"
+
 	curl --compressed -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
 }
 
@@ -34,8 +38,11 @@ Make sure the names of these functions do not collide with the names of any exis
 Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-R:
 
 map \b :%!bash -ic '
+
 map \g yw:%!tail -n^R" \| bash -ic 'get "$(head -n1)"'<CR>
+
 map \p yw:%!tail -n^R" \| bash -ic 'post "$(head -n1)"'<CR>
+
 map \h :%!curl -L https://$(tail -n 1)<CR>
 
 These mappings will not work by default in a text editor like nvi.
