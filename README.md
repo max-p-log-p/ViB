@@ -14,20 +14,20 @@ Add the following functions to your ~/.bashrc file:
 function get { 
 	url="$(echo "$1" | cut -d' ' -f1)"
 	data="$(echo "$1" | cut -d' ' -f2- -s)"
-	curl --compressed -G -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib;
+	curl --compressed -G -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
 }
 
 function post { 
 	url="$(echo "$1" | cut -d' ' -f1)"
 	data="$(echo "$1" | cut -d' ' -f2- -s)"
-	curl --compressed -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib;
+	curl --compressed -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
 }
 
 The names of the functions are arbitrary but will be used later in your .vimrc file. 
 
 The get function performs a HTTP GET request. The post function performs a HTTP POST request. Each function can be extended and changed as necessary. The user agent is provided in each of the functions in the -A option because some websites do not work with curl's user agent. The cookie_file is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The --data-urlencode option is necessary to send data in GET and POST requests. The -L options is convenient because it enables curl to perform redirects. The --stderr option prevents curl from creating a blank line at the top of the file. Finally, the option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
 
-The sed command 's/^[[:space:]]*|[^ -~]//g' in the function strips out any leading white space characters or characters that are not in the range from 32 to 126 inclusive: this allows for the removal of characters that do not display well in vim but may be changed to support UTF-8 characters. The command also serves to prevent link spoofing (see Warning). For more information, read the sed manpage. 
+The sed command 's/^[[:space:]]*|[^ -~]//g' in the function strips out any leading white space characters or characters that are not in the range from 32 to 126 inclusive: this allows for the removal of characters that do not display well in vim but may be changed to support UTF-8 characters. The command also serves to prevent link spoofing (see Warning). The command '/^$/d' deletes blank lines. For more information, read the sed manpage. 
 
 Make sure the names of these functions do not collide with the names of any existing functions, aliases, or commands on your system.
 
