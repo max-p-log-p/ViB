@@ -11,39 +11,43 @@ How to use
 
 Add the following functions to your ~/.bashrc file:
 
-function get { 
-	url="$(echo "$1" | cut -d' ' -f1)"
+	function get { 
 
-	data="$(echo "$1" | cut -d' ' -f2- -s)"
+		url="$(echo "$1" | cut -d' ' -f1)"
 
-	curl --compressed -G -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
-}
+		data="$(echo "$1" | cut -d' ' -f2- -s)"
 
-function post { 
-	url="$(echo "$1" | cut -d' ' -f1)"
+		curl --compressed -G -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
 
-	data="$(echo "$1" | cut -d' ' -f2- -s)"
+	}
 
-	curl --compressed -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
-}
+	function post { 
+
+		url="$(echo "$1" | cut -d' ' -f1)"
+
+		data="$(echo "$1" | cut -d' ' -f2- -s)"
+
+		curl --compressed -L -b /tmp/cookies -c /tmp/cookies -A [user_agent] https://"$url" -w '\n%{url_effective}' --data-urlencode "$data" --stderr - | sed -E 's/^[[:space:]]*|[^ -~]//g' | vib | sed '/^$/d';
+
+	}
 
 The names of the functions are arbitrary but will be used later in your .vimrc file. 
 
 The get function performs a HTTP GET request. The post function performs a HTTP POST request. Each function can be extended and changed as necessary. The user agent is provided in each of the functions in the -A option because some websites do not work with curl's user agent. The cookie_file is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The --data-urlencode option is necessary to send data in GET and POST requests. The -L options is convenient because it enables curl to perform redirects. The --stderr option prevents curl from creating a blank line at the top of the file. Finally, the option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
 
-The sed command 's/^[[:space:]]*|[^ -~]//g' in the function strips out any leading white space characters or characters that are not in the range from 32 to 126 inclusive: this allows for the removal of characters that do not display well in vim but may be changed to support UTF-8 characters. The command also serves to prevent link spoofing (see Warning). The command '/^$/d' deletes blank lines. For more information, read the sed manpage. 
+The sed command `s/^[[:space:]]*|[^ -~]//g` in the function strips out any leading white space characters or characters that are not in the range from 32 to 126 inclusive: this allows for the removal of characters that do not display well in vim but may be changed to support UTF-8 characters. The command also serves to prevent link spoofing (see Warning). The command `/^$/d` deletes blank lines. For more information, read the sed manpage. 
 
 Make sure the names of these functions do not collide with the names of any existing functions, aliases, or commands on your system.
 
 Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-R:
 
-map \b :%!bash -ic '
+	map \b :%!bash -ic '
 
-map \g yw:%!tail -n^R" \| bash -ic 'get "$(head -n1)"'<CR>
+	map \g yw:%!tail -n^R" \| bash -ic 'get "$(head -n1)"'<CR>
 
-map \p yw:%!tail -n^R" \| bash -ic 'post "$(head -n1)"'<CR>
+	map \p yw:%!tail -n^R" \| bash -ic 'post "$(head -n1)"'<CR>
 
-map \h :%!curl -L https://$(tail -n 1)<CR>
+	map \h :%!curl -L https://$(tail -n 1)<CR>
 
 These mappings will not work by default in a text editor like nvi.
 
@@ -52,6 +56,7 @@ The \g and \p mapping should be used at the beginning of a link number (explaine
 Links
 -----
 By default, the vib script will output lines at the bottom of a parsed webpage, looking like this:
+
 www.google.com/search q=&btnK=Google Search&btnI=I'm Feeling Lucky&btnK=Google Search&btnI=I'm Feeling Lucky&source=hp&ei=tFWaYJ3WEYWB9u8P6dyt-A0&iflsig=AINFCbYAAAAAYJpjxKky4-qABenQlt4WPP5eMsQfMBKG
 
 The first component is the HTTP endpoint. The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc.
@@ -91,9 +96,9 @@ It may be possible for an attacker to try to inject the ^[ ^] characters to try 
  
 Other useful .bashrc functions
 ----------------------
-function google { get "www.google.com/search q=$*"; }
+	function google { get "www.google.com/search q=$*"; }
 
-function searx { post "searx.xyz/search q=$*"; }
+	function searx { post "searx.xyz/search q=$*"; }
 
 Work In Progress
 ----------------
