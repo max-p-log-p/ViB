@@ -91,3 +91,7 @@ function searx { post "searx.xyz/search q=$*"; }
 Work In Progress
 ----------------
 - Rewrite in flex/bison for portability and correctness
+
+Bugs
+----
+Please send the website url and raw html to the email seL4@disroot.org, as well as any thing you have changed from the defaults.
