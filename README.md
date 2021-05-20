@@ -4,7 +4,7 @@ ViB - Browser in Vi (Vim-Minimal)
 Why should I use this browser?
 ------------------------------
 
-Clocking in at 50 lines of python, this browser is easily extended and very minimal. The vi interface is reused to support a text based web browser: this means that it has vi keybindings by default. It has low memory usage owing to the reuse of the vi text editor as a web browser. It is portable to any operating system with python, vi, and curl installed, assuming that the python modules sys and html are present. The lack of support for images, video, and javascript can be considered features: this prevents mindless web surfing on social media while retaining the ability to search the web for useful information. Despite its name, vib can be used with many different text editors.
+Clocking in at 50 lines of executable code, this browser is easily extended and very minimal. The vi interface is reused to support a text based web browser: this means that it has vi keybindings by default. It has low memory usage owing to the reuse of the vi text editor as a web browser. It is portable to any operating system with python, vi, and curl installed, assuming that the python modules sys and html are present. The lack of support for images, video, and javascript can be considered features: this prevents mindless web surfing on social media while retaining the ability to search the web for useful information. Despite its name, vib can be used with many different text editors.
 
 How to use
 ----------
@@ -49,9 +49,11 @@ Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-
 
 	map \h :%!curl -L https://$(tail -n 1)<CR>
 
+	map \f ywG:$-^R"<CR>j
+
 These mappings will not work by default in a text editor like nvi.
 
-The \g and \p mapping should be used at the beginning of a link number (explained more below). The mappings \b and \h can be used at any location. The \g mapping is used for get requests. The \p mapping is used for post requests. The \b mapping is used for executing functions or aliases in the .bashrc file. The \h mapping is used to get the raw html of the site.
+The \g, \p, and \f mapping should be used at the beginning of a link number (explained more below). The mappings \b and \h can be used at any location. The \g mapping is used for get requests. The \p mapping is used for post requests. The \f mapping is used to find the link corresponding to a link numer. The \b mapping is used for executing functions or aliases in the .bashrc file. The \h mapping is used to get the raw html of the site.
 
 Links
 -----
