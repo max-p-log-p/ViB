@@ -14,7 +14,7 @@ class ViB(HTMLParser):
 			sys.stdout.write(f'\033{len(urls)}\035 ')
 			urls.append(urljoin(urls[1], attrs['href'].strip()))
 		elif tag == 'form' and 'action' in attrs.keys():
-			ViB.form[0] = f'{urljoin(urls[1], attrs["action"].strip())}'
+			ViB.form[0] = urljoin(urls[1], attrs["action"].strip())
 			ViB.form[1] = attrs.get('method', 'get')
 		elif tag in ViB.input_tags and 'name' in attrs.keys() and ViB.form[0]:
 			ViB.form[2][attrs['name']] = attrs.get('value', '')
@@ -25,9 +25,9 @@ class ViB(HTMLParser):
 		if tag in ViB.bad.keys():
 			ViB.bad[tag] = False
 		elif tag == 'form' and ViB.form[0]:
-			print(f'\033{len(urls)}\035 {ViB.form[0]} {ViB.form[1]}')
+			print(f'\033{len(urls)}\035', ViB.form[0], ViB.form[1])
 			urls.append(f'{ViB.form[0]} {urlencode(ViB.form[2])}')
-			ViB.form[2] = {}
+			ViB.form = ['', '', {}]
 
 	def handle_data(self, data):
 		if not (True in ViB.bad.values()) and not data.isspace():
