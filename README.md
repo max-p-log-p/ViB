@@ -102,6 +102,7 @@ Basic Features
 - Debugging - add --trace to curl
 - Images, Video, etc. - Download manually and view in another application
 - History - Use :his to list or :his / to search history. For persistent history, append the requested url to a file in the desired ~/.bashrc function.
+- Bookmarks - Maintain a bookmarks file with link numbers
 
 For more features read the vi manpage.
 
@@ -115,7 +116,7 @@ In the vimrc mappings, it is necessary to prevent command injection from the url
 
 Many web pages have invalid html. It is possible to fix this by requesting the page with \h, manually fixing the error, then reparsing with %!parse.
 
-The get function in ~/.bashrc will still append '?' to the url if the data is empty. This may cause websites to break, although it is not the fault of the http client (curl). This can be fixed by temporarily removing the --data-raw '' argument to curl in the get function in ~/.bashrc.
+The get function in ~/.bashrc will still append '?' to the url if the data is empty. This may cause websites to break, although it is not the fault of the http client (curl). This can be fixed by temporarily removing the --data-raw '' argument to curl in the get function in ~/.bashrc or by requesting the raw html via \h and reparsing with :%!parse since the \h command does not use --data-raw.
 
 Work In Progress
 ----------------
