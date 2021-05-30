@@ -101,7 +101,7 @@ Basic Features
 - Open in new window - open vi/vim in a new window with tmux
 - Debugging - add --trace to curl
 - Images, Video, etc. - Download manually and view in another application
-- History - Use :his to list or :his / to search history. For persistent history, append the requested url to a file in the desired ~/.bashrc function.
+- History - Use :his to list history. For persistent history, append the requested url to a file in the desired ~/.bashrc function.
 - Bookmarks - Maintain a bookmarks file with link numbers
 
 For more features read the vi manpage.
