@@ -11,21 +11,21 @@ How to use
 
 Add the following functions to your ~/.bashrc file:
 
-	function get { 
+	function form { 
 
 	url="$(echo "$1" | cut -d' ' -f1)"
 
 	data="$(echo -n "$1" | cut -d' ' -f2- -s)"
 
-	html "$url" -b /tmp/c -c /tmp/c --data-raw "$data" ${@:2} | vib;
+	html "$url" --data-raw "$data" ${@:2} | vib;
 
 	}
 
-	function google { echo -n "$*" | urlencode | get "https://www.google.com/search q=$(</dev/stdin)" -G; } 
+	function google { echo -n "$*" | urlencode | form "https://www.google.com/search q=$(</dev/stdin)" -G; }
 
 	function html { 
 
-	curl --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' 2>&1 $@; 
+	curl -b /tmp/c -c /tmp/c --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$1" 2>&1 ${@:2}; 
 
 	}
 
@@ -41,7 +41,7 @@ Add the following functions to your ~/.bashrc file:
 
 	}
 
-	function searx { echo -n "$*" | urlencode | post "https://searx.xyz/search q=$(</dev/stdin)"; }
+	function searx { echo -n "$*" | urlencode | form "https://searx.xyz/search q=$(</dev/stdin)"; }
 
 	function urlencode { 
 
@@ -49,11 +49,13 @@ Add the following functions to your ~/.bashrc file:
 
 	}
 
-	export -f google html http post searx urlencode vib
+	function vib { cat /dev/stdin | /usr/local/bin/vib | sed -E 's/^[[:space:]]*|[^-~]//g; /^$/d'; }
+
+	export -f form google html post searx urlencode vib
 
 The names of the functions are arbitrary but will be used later in your .vimrc file. 
 
-The http function performs a HTTP request. The searx/google function allows you to search searx/google by typing in the search query like so: searx/google vib browser. The vib function allows the user to modify the html to fix errors or manually interpret javascript followed by a reparsing of the webpage. The urlencode function performs url encoding. Each function can be extended and changed as necessary. The user agent is provided in each of the functions in the -A option because some websites do not work with curl's user agent. The cookie_file is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The --data-raw option is necessary to send data in GET and POST requests. The -L option is convenient because it enables curl to perform redirects. The 2>&1 argument prevents curl from creating a blank line at the top of the file. Finally, the option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
+The form function performs a HTTP request that sends form data to the server. The searx/google function allows you to search searx/google by typing in the search query like so: searx/google vib browser. The vib function allows the user to modify the html to fix errors or manually interpret javascript followed by a reparsing of the webpage. The urlencode function performs url encoding. Each function can be extended and changed as necessary. The user agent is provided in each of the functions in the -A option because some websites do not work with curl's user agent. The cookie_file is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The --data-raw option is necessary to send data in GET and POST requests. The -L option is convenient because it enables curl to perform redirects. The 2>&1 argument prevents curl from creating a blank line at the top of the file. Finally, the option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
 
 The sed command `s/^[[:space:]]*|[^^[-~]//g` in the function vib strips out any leading white space characters or characters that are not in the range from 27 to 126 inclusive: this allows for the removal of characters that do not display well in vim but may be changed to support UTF-8 characters. The command `/^$/d` deletes blank lines. For more information, read the sed manpage. 
 
@@ -61,15 +63,15 @@ Make sure the names of these functions do not collide with the names of any exis
 
 Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-R, ^M entered as Ctrl-V+Ctrl-M, ^[OD entered as Ctrl-V+Left:
 
-	map \g mgyw:%!tail -n^R" \| http "$(head -n1)" -G^M
+	map \g mgyw:%!tail -n"\|html "$(head -n1)"\|vib
 
-	map \h yw:%!tail -n^R" \| http "$(head -n1)"
+	map \f yw:%!tail -n^R"\|form "$(head -n1)"
 
 	map \u :%!html https://\|vib^[OD^[OD^[OD^[OD
 
-	map \f ywG:$-^R"+^M
+	map \j ywG:$-^R"+^M
 
-The \g, \h, and \f mapping should be used at the beginning of a link number (explained more below). The mappings \u can be used at any location. The \g mapping is used for get requests. After undo, the mg command is used to allow the user to return to the original position by entering `g. The \h mapping is used for http requests that are not get requests. The \f mapping is used to find the link corresponding to a link numer. The \u mapping is used to request a url or to get the raw html of the site by changing the value https:// to "$(tail -n1)" and deleting the following text '|vib'.
+The \g, \f and \j mapping should be used at the beginning of a link number (explained more below). The mapping \u can be used at any location. The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering `g. The \f mapping is used for http requests that send form data. To send a form with get data, append " -G" after typing \f. To send a form with post data, type \f followed by pressing enter. The \j mapping is used to find the link corresponding to a link number. The \u mapping is used to request a url or to get the raw html of the site by changing the value https:// to "$(tail -n1)" and deleting the following text '|vib'.
 
 Links
 -----
@@ -83,7 +85,7 @@ Link labels can be understood in the following way: ^[ Link Number ^] (HTTP Endp
 
 ^[5^] www.google.com/search get
 
-The last line of the file always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by pressing \h. Links are written in reverse so that the first link is at the bottom of the page and the last link is above every other link.
+The last line of the file always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by changing the url to "$(tail -n1)". Links are written in reverse so that the first link is at the bottom of the page and the last link is above every other link.
 
 Design Choices
 --------------
@@ -96,6 +98,7 @@ Basic Features
 - Copy - Press y[motion] to copy
 - Delete cookie - Remove cookie in cookie file
 - Request a URL - Press \u and enter url
+- Send a form - Press \f and append -G if a get request, press enter 
 - Click link - Press \g at the beginning of the link number
 - Get raw html - Press \u, change https:// to "$(tail -n1)", delete '|vib'
 - Javascript - Get raw html, interpret manually and edit html, reparse with %!vib
