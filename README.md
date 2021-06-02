@@ -4,7 +4,7 @@ ViB - Browser in Vi (Vim-Minimal)
 Why should I use this browser?
 ------------------------------
 
-Clocking in at around 50 lines of executable code, this browser has many capabilities due to its extensibility. The vi interface is reused to support a text based web browser: this means that it has vi keybindings by default. It is portable to any operating system with python3, vi, and curl installed. It has limited support for javascript and modifying/searching html via human cognition. For more features, read the Basic Features section. Despite its name, vib can be used with many different text editors.
+This browser has many capabilities due to its extensibility: the vi interface is reused to support a text based web browser. It is portable to any operating system with python3, vi, and curl installed. It has limited support for javascript and modifying/searching html via human cognition. Despite its name, vib can be used with many different text editors.
 
 How to use
 ----------
@@ -17,19 +17,17 @@ Add the following functions to your ~/.bashrc file:
 
 	data="$(echo -n "$1" | cut -d' ' -f2- -s)"
 
-	html "$url" --data-raw "$data" ${@:2} | vib;
+	html "$url" $2 "$data" ${@:3} | vib;
 
 	}
 
-	function google { echo -n "$*" | urlencode | form "https://www.google.com/search q=$(</dev/stdin)" -G; }
+	function google { echo -n "$*" | urlencode | html "https://www.google.com/search?q=$(</dev/stdin)" | vib; }
 
 	function html { 
 
-	curl -b /tmp/c -c /tmp/c --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$1" 2>&1 ${@:2}; 
+	curl -b /tmp/c -c /tmp/c --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$1" 2>&1 "${@:2}";
 
 	}
-
-	function parse { cat /dev/stdin | vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
 
 	function post { 
 
@@ -41,7 +39,7 @@ Add the following functions to your ~/.bashrc file:
 
 	}
 
-	function searx { echo -n "$*" | urlencode | form "https://searx.xyz/search q=$(</dev/stdin)"; }
+	function searx { echo -n "$*" | urlencode | form "https://searx.xyz/search q=$(</dev/stdin)" --data-raw; }
 
 	function urlencode { 
 
@@ -63,15 +61,15 @@ Make sure the names of these functions do not collide with the names of any exis
 
 Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-R, ^M entered as Ctrl-V+Ctrl-M, ^[OD entered as Ctrl-V+Left:
 
-	map \g mgyw:%!tail -n"\|html "$(head -n1)"\|vib
+	map \g mgyw:%!tail -^R"\|html "$(head -1)"\|vib^M
 
-	map \f yw:%!tail -n^R"\|form "$(head -n1)"
+	map \f yw:%!tail -^R"\|form "$(head -1)" --data-raw
 
 	map \u :%!html https://\|vib^[OD^[OD^[OD^[OD
 
-	map \j ywG:$-^R"+^M
+	map \j :set lines=4^MmjywG:$-^R"+^M
 
-The \g, \f and \j mapping should be used at the beginning of a link number (explained more below). The mapping \u can be used at any location. The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering `g. The \f mapping is used for http requests that send form data. To send a form with get data, append " -G" after typing \f. To send a form with post data, type \f followed by pressing enter. The \j mapping is used to find the link corresponding to a link number. The \u mapping is used to request a url or to get the raw html of the site by changing the value https:// to "$(tail -n1)" and deleting the following text '|vib'.
+The \g, \f and \j mapping should be used at the beginning of a link number (explained more below). The mapping \u can be used at any location. The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering `g. The \f mapping is used for http requests that send form data. To send a form with get data, append " -G" after typing \f. To send a form with post data, type \f followed by pressing enter. To send a form with a file, change the --data-raw to -F followed by pressing enter. The \j mapping is used to find the link corresponding to a link number. It will set the window size to 4. To restore the window size, execute any shell command. To return to the original link, press `j. The \u mapping is used to request a url.
 
 Links
 -----
@@ -79,17 +77,23 @@ By default, the vib script will output lines at the bottom of a parsed webpage, 
 
 https://lwn.net/Login/newaccount submit=Register
 
-The first component is the HTTP endpoint. The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc. When editing the data, make sure it is urlencoded. Urlencoded data can be gotten by piping the data to urlencode in the ~/.bashrc function.
+The first component is the URL. The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc. When editing the data, make sure it is urlencoded. Urlencoded data can be obtained by piping the data to urlencode in the ~/.bashrc function.
 
-Link labels can be understood in the following way: ^[ Link Number ^] (HTTP Endpoint) (HTTP Request Type). 
+Form labels can be understood in the following way: ^[ (link number) (action) (method) (enctype)^].
 
-^[5^] www.google.com/search get
+^[5 www.google.com/search get data^]
 
-The last line of the file always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by changing the url to "$(tail -n1)". Links are written in reverse so that the first link is at the bottom of the page and the last link is above every other link.
+The enctype values data and application/x-www-form-urlencode mean that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file.
+
+Link labels can be understood in the following way: ^[ (link number) ^].
+
+^[5^]
+
+The last line of the file always corresponds to the current url of the webpage. This allows one to easily retrieve the raw html of the webpage by changing the url to "$(tail -1)". Links are written in reverse so that the first link is at the bottom of the page and the last link is above every other link.
 
 Design Choices
 --------------
-The vib browser is designed to be as minimal as possible. This results in tremendous customizability. For example, since vi/vim does not support ANSI escape sequences for color, the octal sequence \033 and \035 are used to delimit a label for a url because these characters are blue in vim. With a different text editor like ed, it might be possible to use ANSI escape sequences.
+Since vi/vim does not support ANSI escape sequences for color, the octal sequence \033 and \035 are used to delimit a label for a url because these characters are blue in vim. With a different text editor like ed, it might be possible to use ANSI escape sequences.
 
 Basic Features
 --------------
@@ -98,23 +102,25 @@ Basic Features
 - Copy - Press y[motion] to copy
 - Delete cookie - Remove cookie in cookie file
 - Request a URL - Press \u and enter url
-- Send a form - Press \f and append -G if a get request, press enter 
+- Send a form - Press \f and append -G if get request, press enter 
 - Click link - Press \g at the beginning of the link number
-- Get raw html - Press \u, change https:// to "$(tail -n1)", delete '|vib'
+- Get raw html - :%!html "$(tail -1)"
 - Javascript - Get raw html, interpret manually and edit html, reparse with %!vib
 - Inspect Element - Get raw html, search with /, edit html with vim, reparse with %!vib
 - Open in new tab - Press \u and enter url, press Ctrl-b, type tabnew and press enter
 - Open in new window - open vi/vim in a new window with tmux
 - Debugging - add --trace to curl
-- Images, Video, etc. - Download manually and view in another application
+- Images, Video, etc. - Download manually with the html function and view in another application
 - History - Use :his to list history. For persistent history, append the requested url to a file in the desired ~/.bashrc function.
 - Bookmarks - Maintain a bookmarks file with link numbers
+- File Upload - Press \f and change --data-raw to -F, press enter
+- Hide Password - Enter insert mode, press Ctrl-S, type password, exit insert mode, press `j, press Ctrl-Q
 
 For more features read the vi manpage.
 
 Untested Features
 -----------------
-There is support for textarea elements, but this is not very well tested. File upload is also supported via curl's -F option, but this not yet been tested successfully.
+- textarea 
 
 Warnings/Errata
 ---------------
