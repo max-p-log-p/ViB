@@ -1,33 +1,34 @@
 #!/usr/bin/env python3
 import sys
-from urllib.parse import urljoin, urlencode
+from urllib.parse import urljoin as urlj, urlencode as urle
 from html.parser import HTMLParser
 
 class ViB(HTMLParser):
-	bad = {'script': False, 'style': False, 'option': False}
-	form = ['', '', {}]
-	input_tags = ['input', 'textarea', 'select', 'button']
+	bad = {'script': False, 'style': False}
+	form = ['', '', '', {}]
+	inputs = ('input', 'textarea', 'select', 'button')
 
 	def handle_starttag(self, tag, attrs):
 		attrs = dict(attrs)
 		if tag == 'a' and 'href' in attrs.keys():
 			sys.stdout.write(f'\033{len(urls)}\035 ')
-			urls.append(urljoin(urls[1], attrs['href'].strip()))
-		elif tag == 'form' and 'action' in attrs.keys():
-			ViB.form[0] = urljoin(urls[1], attrs["action"].strip())
+			urls.append(urlj(urls[1], attrs['href'].strip()))
+		elif tag == 'form':
+			ViB.form[0] = attrs.get('action', urls[1]).strip()
 			ViB.form[1] = attrs.get('method', 'get')
-		elif tag in ViB.input_tags and 'name' in attrs.keys() and ViB.form[0]:
-			ViB.form[2][attrs['name']] = attrs.get('value', '')
+			ViB.form[2] = attrs.get('enctype', 'data')
+		elif tag in ViB.inputs and 'name' in attrs.keys() and ViB.form[0]:
+			ViB.form[3][attrs['name']] = attrs.get('value', '')
 		elif tag in ViB.bad.keys():
 			ViB.bad[tag] = True
 
 	def handle_endtag(self, tag):
 		if tag in ViB.bad.keys():
 			ViB.bad[tag] = False
-		elif tag == 'form' and ViB.form[0]:
-			print(f'\033{len(urls)}\035', ViB.form[0], ViB.form[1])
-			urls.append(f'{ViB.form[0]} {urlencode(ViB.form[2])}')
-			ViB.form = ['', '', {}]
+		elif tag == 'form':
+			print(f'\033{len(urls)} {" ".join(ViB.form[0:3])}\035')
+			urls.append(f'{urlj(urls[1], ViB.form[0])} {urle(ViB.form[3])}')
+			ViB.form = ['', '', '', {}]
 
 	def handle_data(self, data):
 		if not (True in ViB.bad.values()) and not data.isspace():
