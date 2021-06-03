@@ -47,7 +47,7 @@ Add the following functions to your ~/.bashrc file:
 
 	}
 
-	function vib { cat /dev/stdin | /usr/local/bin/vib | sed -E 's/^[[:space:]]*|[^-~]//g; /^$/d'; }
+	function vib { cat /dev/stdin | /usr/local/bin/vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
 
 	export -f form google html post searx urlencode vib
 
@@ -67,7 +67,7 @@ Add the following mappings to your ~/.vimrc file with ^R entered as Ctrl-V+Ctrl-
 
 	map \u :%!html https://\|vib^[OD^[OD^[OD^[OD
 
-	map \j :set lines=4^MmjywG:$-^R"+^M
+	map \j mjywG:$-^R"+^Mf=
 
 The \g, \f and \j mapping should be used at the beginning of a link number (explained more below). The mapping \u can be used at any location. The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering `g. The \f mapping is used for http requests that send form data. To send a form with get data, append " -G" after typing \f. To send a form with post data, type \f followed by pressing enter. To send a form with a file, change the --data-raw to -F followed by pressing enter. The \j mapping is used to find the link corresponding to a link number. It will set the window size to 4. To restore the window size, execute any shell command. To return to the original link, press `j. The \u mapping is used to request a url.
 
@@ -81,9 +81,9 @@ The first component is the URL. The second component is the data to be sent via 
 
 Form labels can be understood in the following way: ^[ (link number) (action) (method) (enctype)^].
 
-^[5 www.google.com/search get data^]
+^[5 /search^] get application/x-www-form-urlencode
 
-The enctype values data and application/x-www-form-urlencode mean that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file.
+The enctype value application/x-www-form-urlencode or its absence means that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file. The specific parameter to specify the file path will have a default value of the '@' character. 
 
 Link labels can be understood in the following way: ^[ (link number) ^].
 
@@ -114,17 +114,14 @@ Basic Features
 - History - Use :his to list history. For persistent history, append the requested url to a file in the desired ~/.bashrc function.
 - Bookmarks - Maintain a bookmarks file with link numbers
 - File Upload - Press \f and change --data-raw to -F, press enter
-- Hide Password - Enter insert mode, press Ctrl-S, type password, exit insert mode, press `j, press Ctrl-Q
+- Hide Password - Set lines to 4 with :set lines=4, enter insert mode, press Ctrl-S, type password, exit insert mode, press `j, press Ctrl-Q
+- Textarea - Use %0D%0A for lines breaks with --data to send the data, or use a temporary file and send the data with --data-binary @/path/to/file
 
 For more features read the vi manpage.
 
-Untested Features
------------------
-- textarea 
-
 Warnings/Errata
 ---------------
-In the vimrc mappings, it is necessary to prevent command injection from the url. Do not remove the quotes surrounding $(head -n 1), this is used to prevent the characters from being interpreted by the shell.
+In the vimrc mappings, it is necessary to prevent command injection from the url. Do not remove the quotes surrounding $(head -1), this is used to prevent the characters from being interpreted by the shell.
 
 Many web pages have invalid html. It is possible to fix this by getting the raw html, manually fixing the error, then reparsing with %!vib.
 
