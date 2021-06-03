@@ -1,43 +1,47 @@
 #!/usr/bin/env python3
 import sys
-from urllib.parse import urljoin as urlj, urlencode as urle
+from urllib.parse import urljoin, quote_plus as urle, urlparse
 from html.parser import HTMLParser
 
 class ViB(HTMLParser):
-	bad = {'script': False, 'style': False}
-	form = ['', '', '', {}]
-	inputs = ('input', 'textarea', 'select', 'button')
+	bad = {'style', 'script'}
+	form = ['', '', '']
+	inputs = {'input', 'textarea', 'button'}
+	handle_data = lambda self, data : print(data)
+	defs = {'file': '@', 'checkbox': 'on'}
 
 	def handle_starttag(self, tag, attrs):
 		attrs = dict(attrs)
-		if tag == 'a' and 'href' in attrs.keys():
+		if tag == 'a' and 'href' in attrs:
 			sys.stdout.write(f'\033{len(urls)}\035 ')
-			urls.append(urlj(urls[1], attrs['href'].strip()))
+			urls.append(urljoin(urls[1], attrs['href'].strip()))
+		elif tag in ViB.inputs and ViB.form[0] and 'name' in attrs:
+			v = ViB.defs.get(attrs.get('type')) or urle(attrs.get('value', ''))
+			ViB.form[2] += f'{attrs["name"]}={v}&'
+		elif tag in ViB.bad:
+			ViB.handle_data = lambda self, data : None
 		elif tag == 'form':
-			ViB.form[0] = attrs.get('action', urls[1]).strip()
-			ViB.form[1] = attrs.get('method', 'get')
-			ViB.form[2] = attrs.get('enctype', 'data')
-		elif tag in ViB.inputs and 'name' in attrs.keys() and ViB.form[0]:
-			ViB.form[3][attrs['name']] = attrs.get('value', '')
-		elif tag in ViB.bad.keys():
-			ViB.bad[tag] = True
+			ViB.form[0] = attrs.get('action', urls[0]).strip()
+			ViB.form[1] = attrs.get('method', '') + ' '
+			ViB.form[1] += attrs.get('enctype', '')
+		elif tag == 'option' and ViB.form[2]:
+			ViB.form[2] += urle(attrs.get('value', '')) + ','
+		elif tag == 'select' and ViB.form[0] and 'name' in attrs:
+			ViB.form[2] += attrs['name'] + '='
 
 	def handle_endtag(self, tag):
-		if tag in ViB.bad.keys():
-			ViB.bad[tag] = False
-		elif tag == 'form':
-			print(f'\033{len(urls)} {" ".join(ViB.form[0:3])}\035')
-			urls.append(f'{urlj(urls[1], ViB.form[0])} {urle(ViB.form[3])}')
-			ViB.form = ['', '', '', {}]
+		if tag in ViB.bad:
+			ViB.handle_data = lambda self, data : print(data)
+		elif tag == 'form' and ViB.form[0]:
+			print(f'\033{len(urls)} {ViB.form[0]}\035 {ViB.form[1]}')
+			urls.append(f'{urljoin(urls[1], ViB.form[0])} {ViB.form[2][:-1]}')
+			ViB.form = ['', '', ''] 
+		elif tag == 'select' and ViB.form[0]:
+			ViB.form[2] = ViB.form[2][:-1] + '&'
 
-	def handle_data(self, data):
-		if not (True in ViB.bad.values()) and not data.isspace():
-			print(data)
-
-parser = ViB()
-sys.stdin.reconfigure(errors='ignore')
+sys.stdin.reconfigure(errors='replace')
 input = sys.stdin.readlines()
-urls = ["", input[-1]]
-parser.feed('\n'.join(input[:-1]))
+urls = [urlparse(input[-1]).path, input[-1]]
+ViB().feed('\n'.join(input[:-1]))
 for i in range(len(urls) - 1, 0, -1):
 	print(urls[i])
