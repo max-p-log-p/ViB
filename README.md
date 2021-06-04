@@ -29,16 +29,6 @@ Add the following functions to your ~/.bashrc file:
 
 	}
 
-	function post { 
-
-		url="$(echo "$1" | cut -d' ' -f1)"
-
-		data="$(echo -n "$1" | cut -d' ' -f2- -s)"
-
-		curl --compressed -L -b /tmp/c -c /tmp/c -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' "$url" -w '\n%{url_effective}' --data-raw "$data" 2>&1 | parse;
-
-	}
-
 	function searx { echo -n "$*" | urlencode | form "https://searx.xyz/search q=$(</dev/stdin)" --data-raw; }
 
 	function urlencode { 
@@ -49,7 +39,7 @@ Add the following functions to your ~/.bashrc file:
 
 	function vib { cat /dev/stdin | /usr/local/bin/vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
 
-	export -f form google html post searx urlencode vib
+	export -f form google html searx urlencode vib
 
 The names of the functions are arbitrary but will be used later in your .vimrc file. 
 
