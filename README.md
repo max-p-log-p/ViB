@@ -9,21 +9,13 @@ This browser has many capabilities due to its extensibility: the vi interface is
 How to use
 ----------
 
-Add the following functions to your ~/.bashrc file:
+Add the following functions to your shells rcfile:
 
-	function form { 
+	form() { printf '%s' "$1" | { IFS=' ' read -r url data; html "$url" $2 "$data" $3; } | vib; }	
 
-	url="$(echo "$1" | cut -d' ' -f1)"
+	google() { urlencode "$*" | html "https://www.google.com/search?q=$(</dev/stdin)" | vib; }
 
-	data="$(echo -n "$1" | cut -d' ' -f2- -s)"
-
-	html "$url" $2 "$data" $3 | vib;
-
-	}
-
-	function google { urlencode | html "https://www.google.com/search?q=$(</dev/stdin)" | vib; }
-
-	function html { 
+	html() { 
 
 	url="$1"
 
@@ -31,11 +23,11 @@ Add the following functions to your ~/.bashrc file:
 
 	}
 
-	function searx { urlencode | form "https://searx.xyz/search q=$(</dev/stdin)" --data-raw; }
+	searx() { urlencode "$*" | form "https://searx.xyz/search q=$(</dev/stdin)" --data-raw; }
 
-	function urlencode { python3 -c "from urllib.parse import quote_plus; print(quote_plus('$*'), end='')"; }
+	urlencode() { python3 -c "from urllib.parse import quote_plus; print(quote_plus('$*'), end='')"; }
 
-	function vib { cat /dev/stdin | /path/to/vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
+	vib() { </dev/stdin /path/to/vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
 
 	export -f form google html searx urlencode vib
 
