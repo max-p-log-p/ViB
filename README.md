@@ -17,27 +17,25 @@ Add the following functions to your ~/.bashrc file:
 
 	data="$(echo -n "$1" | cut -d' ' -f2- -s)"
 
-	html "$url" $2 "$data" ${@:3} | vib;
+	html "$url" $2 "$data" $3 | vib;
 
 	}
 
-	function google { echo -n "$*" | urlencode | html "https://www.google.com/search?q=$(</dev/stdin)" | vib; }
+	function google { urlencode | html "https://www.google.com/search?q=$(</dev/stdin)" | vib; }
 
 	function html { 
 
-	curl -b /tmp/c -c /tmp/c --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$1" 2>&1 "${@:2}";
+	url="$1"
+
+	shift; curl -b <data|filename> -c <filename> --compressed -L -A <name> -w '\n%{url_effective}' "$url" "$@" 2>&1;
 
 	}
 
-	function searx { echo -n "$*" | urlencode | form "https://searx.xyz/search q=$(</dev/stdin)" --data-raw; }
+	function searx { urlencode | form "https://searx.xyz/search q=$(</dev/stdin)" --data-raw; }
 
-	function urlencode { 
+	function urlencode { python3 -c "from urllib.parse import quote_plus; print(quote_plus('$*'), end='')"; }
 
-	python3 -c 'from urllib.parse import quote_plus; import sys; print(quote_plus(sys.stdin.read()), end="")'; 
-
-	}
-
-	function vib { cat /dev/stdin | /usr/local/bin/vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
+	function vib { cat /dev/stdin | /path/to/vib | sed -E 's/^[[:space:]]*|[^^[-~]//g; /^$/d'; }
 
 	export -f form google html searx urlencode vib
 
@@ -71,9 +69,9 @@ The first component is the URL. The second component is the data to be sent via 
 
 Form labels can be understood in the following way: ^[ (link number) (action) (method) (enctype)^].
 
-^[5 /search^] get application/x-www-form-urlencode
+^[5 /search^] get application/x-www-form-urlencoded
 
-The enctype value application/x-www-form-urlencode or its absence means that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file. The specific parameter to specify the file path will have a default value of the '@' character. 
+The enctype value application/x-www-form-urlencoded or its absence means that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file. The specific parameter to specify the file path will have a default value of the '@' character. 
 
 Link labels can be understood in the following way: ^[ (link number) ^].
 
