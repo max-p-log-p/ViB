@@ -67,13 +67,13 @@ https://lwn.net/Login/newaccount submit=Register
 
 The first component is the URL. The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc. When editing the data, make sure it is urlencoded. Urlencoded data can be obtained by piping the data to urlencode in the ~/.bashrc function.
 
-Form labels can be understood in the following way: ^[ (link number) (action) (method) (enctype)^].
+Form labels can be understood in the following way: ^[<link number> <action>^] [method] [enctype].
 
 ^[5 /search^] get application/x-www-form-urlencoded
 
 The enctype value application/x-www-form-urlencoded or its absence means that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file. The specific parameter to specify the file path will have a default value of the '@' character. 
 
-Link labels can be understood in the following way: ^[ (link number) ^].
+Link labels can be understood in the following way: ^[<link number>^].
 
 ^[5^]
 
