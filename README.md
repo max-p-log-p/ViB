@@ -82,6 +82,10 @@ Warnings/Errata
 ---------------
 Many web pages have invalid html. It is possible to fix this by getting the raw html, manually fixing the error, then reparsing with %!vib.
 
+It is wise to compile curl without most of its support for various protocols if you don't need it. Curl has frequent vulnerabilities in those protocols, they may allow for disclosure of sensitive data/command execution, and the --proto, --proto-default, and --proto-redir options may be bypassed by an attacker.
+
+For OpenBSD nvi, you need to start with a nonempty file otherwise nvi will complain that 'The ! command doesn't permit an address of 0.'
+
 Work In Progress
 ----------------
 - Rewrite in flex/bison for portability and correctness
