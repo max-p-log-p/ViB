@@ -14,7 +14,7 @@ Add the following mappings to the configuration file of your version of vi:
 
 	map \g mg:%!. ~/.vibrc; get 
 
-	map \f yw:%!. ~/.vibrc; form --data-raw 
+	map \f :%!. ~/.vibrc; form --data-raw 
 
 	map \u :%!. ~/.vibrc; url https://
 
