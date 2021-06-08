@@ -4,7 +4,7 @@ html() {
 
 url="$1"
 
-shift; curl -s -b /tmp/c -c /tmp/c --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$url" "$@" 2>&1;
+shift; curl -s -b /tmp/c -c /tmp/c --compressed --proto-default https --proto-redir -all,https --proto =http,https -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$url" "$@" 2>&1;
 
 }
 
