@@ -8,7 +8,7 @@ This browser has many capabilities due to its extensibility: the vi interface is
 
 How to use
 ----------
-Copy the .vibrc file to your home directory.
+Copy the .vibrc file to your home directory and change /path/to/vib to the path to the vib file.
 
 Add the following mappings to the configuration file of your version of vi:
 
