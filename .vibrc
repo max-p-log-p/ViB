@@ -1,0 +1,19 @@
+form() { printf '%s' "$(tail -"$2" | head -1)" | { IFS=' ' read -r url data; html "$url" "$1" "$data" $3; } | vib; }
+
+html() {
+
+url="$1"
+
+shift; curl -b /tmp/c -c /tmp/c --compressed -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$url" "$@" 2>&1;
+
+}
+
+get() { html "$(tail -"$1" | head -1)" | vib; }
+
+google() { urlencode "$*" | html "https://www.google.com/search?q=$(cat /dev/stdin)" | vib; }
+
+url() { html "$1" | vib; }
+
+urlencode() { python3 -c "from urllib.parse import quote_plus; print(quote_plus('$*'), end='')"; }
+
+vib() { </dev/stdin $HOME/bin/vib | sed -E 's/^[[:space:]]*|[^-~]//g; /^$/d'; }
