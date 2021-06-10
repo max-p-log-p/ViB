@@ -86,6 +86,8 @@ It is wise to compile curl without most of its support for various protocols if 
 
 For OpenBSD nvi, you need to start with a nonempty file otherwise nvi will complain that 'The ! command doesn't permit an address of 0.'
 
+Do not paste urls into the ex prompt: first paste them into an empty file, then use the \g mapping to request the url. Otherwise, vi/vim could potentially interpret some characters as shell metacharacters and execute commands.
+
 Work In Progress
 ----------------
 - Rewrite in flex/bison for portability and correctness
