@@ -3,45 +3,90 @@ import sys
 from urllib.parse import urljoin, quote_plus as urle, urlparse
 from html.parser import HTMLParser
 
+def a(attrs):
+	if 'href' in attrs: # a needs href
+		# \033 -> ^[ and \035 -> ^], blue color in vim
+		sys.stdout.write(f'\033{len(urls)}\035 ')
+		# must strip href of leading and trailing whitespace
+		urls.append(urljoin(urls[1], attrs['href'].strip()))
+
+def get_name_value(attrs):
+	# input, textarea, button needs a form and name attribute
+	if ViB.form[0] and 'name' in attrs:
+		value = ViB.defs.get(attrs.get('type')) or urle(attrs.get('value', ''))
+		ViB.form[2] += f'{attrs["name"]}={value}&'
+
+def start_form(attrs):
+	# if no action attribute, use the path of the last url requested
+	# action of '' will be sent to current url
+	ViB.form[0] = attrs.get('action', urls[0]).strip() or urls[0]
+	# method: user needs to know to use -G or not
+	# enctype: user needs to know whether to use -F or --data-raw
+	ViB.form[1] = f'{attrs.get("method", "")} {attrs.get("enctype", "")}'
+
+def option(attrs):
+	if ViB.form[3]: # option needs a select
+		# commas delimit option values since they can't be an actual value
+		# if they were a value, they would be urlencoded to %2C
+		ViB.form[3] += urle(attrs.get('value', '')) + ','
+
+def start_select(attrs):
+	if ViB.form[0] and 'name' in attrs: # select needs a form and name
+		# can't be empty or breaks option/end_select
+		ViB.form[3] = attrs['name'] + '='
+
+def end_form():
+	if ViB.form[0]: # ignore stray form end tags
+		print(f'\033{len(urls)} {ViB.form[0]}\035 {ViB.form[1]}')
+		# space used as delimiter for form() in ~/.vibrc
+		# remove extra & at end
+		# urljoin after so that only relative url is shown to user
+		urls.append(f'{urljoin(urls[1], ViB.form[0])} {ViB.form[2][:-1]}')
+		ViB.form = ['', '', '', ''] # reset values for next form
+
+def end_select():
+	if ViB.form[3]: # ignore stray end select tags
+		ViB.form[2] += ViB.form[3] + '&'
+	ViB.form[3] = '' # clear select data
+
+def ignore(not_used=None):
+	# don't print between <script> and <style> tags
+	ViB.handle_data = lambda self, data : None
+
+def show(not_used=None):
+	ViB.handle_data = lambda self, data : print(data)
+
 class ViB(HTMLParser):
-	bad = {'style', 'script'}
-	form = ['', '', '']
-	inputs = {'input', 'textarea', 'button'}
-	handle_data = lambda self, data : print(data)
-	defs = {'file': '@', 'checkbox': 'on'}
+	form = ['', '', '', ''] # url endpoint, method/enctype, name=value, select
+	# defaults for input type=
+	# @ delimits file since it can't be an actual value
+	# if it was a value, it would be urlencoded
+	defs = {'checkbox': 'on', 'file': '@'}
+
+	# tag names produced by handle_starttag are assumed to be lowercase
+	start_tag2func = {'a': a, 'input': get_name_value, 'form': start_form, 
+	'textarea': get_name_value, 'button': get_name_value, 'style': ignore, 
+	'script': ignore, 'option': option, 'select': start_select}
+
+	# tag names produced by handle_endtag are assumed to be lowercase
+	end_tag2func = {'script': show, 'style': show, 'form': end_form, 
+	'select': end_select}
 
 	def handle_starttag(self, tag, attrs):
-		attrs = dict(attrs)
-		if tag == 'a' and 'href' in attrs:
-			sys.stdout.write(f'\033{len(urls)}\035 ')
-			urls.append(urljoin(urls[1], attrs['href'].strip()))
-		elif tag in ViB.inputs and ViB.form[0] and 'name' in attrs:
-			v = ViB.defs.get(attrs.get('type')) or urle(attrs.get('value', ''))
-			ViB.form[2] += f'{attrs["name"]}={v}&'
-		elif tag in ViB.bad:
-			ViB.handle_data = lambda self, data : None
-		elif tag == 'form':
-			ViB.form[0] = attrs.get('action', urls[0]).strip()
-			ViB.form[1] = attrs.get('method', '') + ' '
-			ViB.form[1] += attrs.get('enctype', '')
-		elif tag == 'option' and ViB.form[2]:
-			ViB.form[2] += urle(attrs.get('value', '')) + ','
-		elif tag == 'select' and ViB.form[0] and 'name' in attrs:
-			ViB.form[2] += attrs['name'] + '='
+		ViB.start_tag2func.get(tag, lambda attrs : None)(dict(attrs))
+
+	def handle_data(self, data):
+		print(data)
 
 	def handle_endtag(self, tag):
-		if tag in ViB.bad:
-			ViB.handle_data = lambda self, data : print(data)
-		elif tag == 'form' and ViB.form[0]:
-			print(f'\033{len(urls)} {ViB.form[0]}\035 {ViB.form[1]}')
-			urls.append(f'{urljoin(urls[1], ViB.form[0])} {ViB.form[2][:-1]}')
-			ViB.form = ['', '', ''] 
-		elif tag == 'select' and ViB.form[0]:
-			ViB.form[2] = ViB.form[2][:-1] + '&'
+		ViB.end_tag2func.get(tag, lambda : None)()
 
+# replace so users can see that something should have been there
 sys.stdin.reconfigure(errors='replace')
 input = sys.stdin.readlines()
+# last line of input assumed to be last absolute url requested
+# current path also used to increase len(urls) by 1, making tail work correctly
 urls = [urlparse(input[-1]).path, input[-1]]
 ViB().feed('\n'.join(input[:-1]))
-for i in range(len(urls) - 1, 0, -1):
+for i in range(len(urls) - 1, 0, -1): # don't print first url (current path)
 	print(urls[i])
