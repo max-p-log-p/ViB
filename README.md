@@ -88,6 +88,8 @@ For OpenBSD nvi, you need to start with a nonempty file otherwise nvi will compl
 
 Do not paste urls into the ex prompt: first paste them into an empty file, then use the \g mapping to request the url. Otherwise, vi/vim could potentially interpret some characters as shell metacharacters and execute commands.
 
+It may be possible to use protocol smuggling to attempt a client side request forgery attack. If possible, use the web browser in a network namespace/virtual environment or ensure that services running have some sort of client side request forgery protection.
+
 Work In Progress
 ----------------
 - Rewrite in flex/bison for portability and correctness
