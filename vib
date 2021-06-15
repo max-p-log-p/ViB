@@ -17,9 +17,9 @@ def get_name_value(attrs):
 		ViB.form[2] += f'{attrs["name"]}={value}&'
 
 def start_form(attrs):
-	# if no action attribute, use the path of the last url requested
-	# action of '' will be sent to current url
-	ViB.form[0] = attrs.get('action', urls[0]).strip() or urls[0]
+	# if no action attribute, use the path of the last url requested 
+	# use / if the path of the last url requested is empty or action is ''
+	ViB.form[0] = attrs.get('action', urls[0]).strip() or '/'
 	# method: user needs to know to use -G or not
 	# enctype: user needs to know whether to use -F or --data-raw
 	ViB.form[1] = f'{attrs.get("method", "")} {attrs.get("enctype", "")}'
