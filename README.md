@@ -20,7 +20,7 @@ Add the following mappings to the configuration file of your version of vi:
 
 	map \j mjyw:$+-
 
-The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering `g. The \f mapping is used for http requests that send form data. To send a form with get data, type \f, followed by the link number and -G. To send a form with post data, type \f followed by the link number. To send a form with a file, change the --data-raw to -F followed by typing the link number. The \j mapping is used to find the link corresponding to a link number. To return to the original link, press `j. The \u mapping is used to request a url.
+The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering \`g. The \f mapping is used for http requests that send form data. To send a form with get data, type \f, followed by the link number and -G. To send a form with post data, type \f followed by the link number. To send a form with a file, change the --data-raw to -F followed by typing the link number. The \j mapping is used to find the link corresponding to a link number. To return to the original link, press \`j. The \u mapping is used to request a url.
 
 .vibrc
 ------
@@ -38,13 +38,13 @@ https://lwn.net/Login/newaccount submit=Register
 
 The first component is the URL. The second component is the data to be sent via GET/POST request. It is possible to edit or fill in this data and use it to make searches, login to websites, etc. When editing the data, make sure it is urlencoded. Urlencoded data can be obtained by piping the data to the urlencode function.
 
-Form labels can be understood in the following way: ^[<link number> <action>^] [method] [enctype].
+Form labels can be understood in the following way: ^[\<link number\> \<action\>^] [method] [enctype].
 
 ^[5 /search^] get application/x-www-form-urlencoded
 
 The enctype value application/x-www-form-urlencoded or its absence means that the user should use --data-raw to send the form data. The enctype value multipart/form-data means that the user should use -F to send a file. The specific parameter to specify the file path will have a default value of the '@' character. 
 
-Link labels can be understood in the following way: ^[<link number>^].
+Link labels can be understood in the following way: ^[\<link number\>^].
 
 ^[5^]
 
@@ -87,6 +87,8 @@ It is wise to compile curl without most of its support for various protocols if 
 For OpenBSD nvi, you need to start with a nonempty file otherwise nvi will complain that 'The ! command doesn't permit an address of 0.'
 
 Do not paste urls into the ex prompt: first paste them into an empty file, then use the \g mapping to request the url. Otherwise, vi/vim could potentially interpret some characters as shell metacharacters and execute commands.
+
+It may be possible to use protocol smuggling to attempt a client side request forgery attack. If possible, use the web browser in a network namespace/virtual environment or ensure that services running have some sort of client side request forgery protection.
 
 Work In Progress
 ----------------
