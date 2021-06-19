@@ -61,7 +61,7 @@ class ViB(HTMLParser):
 	# defaults for input type=
 	# @ delimits file since it can't be an actual value
 	# if it was a value, it would be urlencoded
-	defs = {'checkbox': 'on', 'file': '@'}
+	defs = {'checkbox': '!', 'file': '@'}
 
 	# tag names produced by handle_starttag are assumed to be lowercase
 	start_tag2func = {'a': a, 'input': get_name_value, 'form': start_form, 
@@ -80,6 +80,10 @@ class ViB(HTMLParser):
 
 	def handle_endtag(self, tag):
 		ViB.end_tag2func.get(tag, lambda : None)()
+
+	# bug 'NotImplementedError: subclasses of ParserBase must override error()'
+	def error(self, message):
+		sys.stderr.write(message)
 
 # replace so users can see that something should have been there
 sys.stdin.reconfigure(errors='replace')
