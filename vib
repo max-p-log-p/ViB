@@ -54,7 +54,7 @@ def ignore(not_used=None):
 	ViB.handle_data = lambda self, data : None
 
 def show(not_used=None):
-	ViB.handle_data = lambda self, data : print(data)
+	ViB.handle_data = lambda self, data : print(data.lstrip())
 
 class ViB(HTMLParser):
 	form = ['', '', '', ''] # url endpoint, method/enctype, name=value, select
@@ -76,7 +76,7 @@ class ViB(HTMLParser):
 		ViB.start_tag2func.get(tag, lambda attrs : None)(dict(attrs))
 
 	def handle_data(self, data):
-		print(data)
+		print(data.lstrip())
 
 	def handle_endtag(self, tag):
 		ViB.end_tag2func.get(tag, lambda : None)()
