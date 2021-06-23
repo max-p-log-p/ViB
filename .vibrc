@@ -14,4 +14,4 @@ url() { html "$1" | vib; }
 
 urlencode() { python3 -c "from urllib.parse import quote_plus, sys; print(quote_plus(sys.argv[1]), end='')" "$*"; }
 
-vib() { </dev/stdin /path/to/vib | sed 's/[^-~]/�/g; /^\s*$/d'; }
+vib() { </dev/stdin /path/to/vib | sed 's/[^-~]/�/g'; }

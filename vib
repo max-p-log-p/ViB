@@ -49,12 +49,12 @@ def end_select():
 		ViB.form[2] += ViB.form[3] + '&'
 	ViB.form[3] = '' # clear select data
 
-def ignore(not_used=None):
+def ignore(not_used):
 	# don't print between <script> and <style> tags
-	ViB.handle_data = lambda self, data : None
+	ViB.handle_data = lambda s, d: None
 
-def show(not_used=None):
-	ViB.handle_data = lambda self, data : print(data.lstrip())
+def show():
+	ViB.handle_data = lambda s, d : not d.isspace() and print(d.strip())
 
 class ViB(HTMLParser):
 	form = ['', '', '', ''] # url endpoint, method/enctype, name=value, select
@@ -76,7 +76,7 @@ class ViB(HTMLParser):
 		ViB.start_tag2func.get(tag, lambda attrs : None)(dict(attrs))
 
 	def handle_data(self, data):
-		print(data.lstrip())
+		not data.isspace() and print(data.strip())
 
 	def handle_endtag(self, tag):
 		ViB.end_tag2func.get(tag, lambda : None)()
