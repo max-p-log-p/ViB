@@ -1,4 +1,4 @@
-form() { printf '%s' "$(tail -"$2" | head -1)" | { IFS=' ' read -r url data; html "$url" "$1" "$data" $3; } | vib; }
+form() { printf '%s' "$(tail -"$1" | head -1)" | { read -r url data; html "$url" --form-data "$data" $2; } | vib; }
 
 html() {
 
