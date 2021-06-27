@@ -76,7 +76,7 @@ Links with form data (require user input) have the following format: ^[\<link nu
 
 The action is shown to give the user an idea of what the link is used for. In the example above, /search implies that the link is used for searching.
 
-The method is shown to let the user know which method they should use to send data. If the method is get, the user should append -G when sending the data (e.g. :. ~/.vibrc; form 28 -G). It the method is post or if the method is not shown, the user should not append -G when sending the data (e.g. :. ~/.vibrc; form 28).
+The method is shown to let the user know which method they should use to send data. If the method is get or if the method is not shown, the user should append -G when sending the data (e.g. :. ~/.vibrc; form 28 -G). It the method is post, the user should not append -G when sending the data (e.g. :. ~/.vibrc; form 28).
 
 The enctype value application/x-www-form-urlencoded or its absence is the default enctype which means that the user should use the vi mapping \f to send the data. The enctype value multipart/form-data means that the user needs to manually uspecify parameters to send the data. If a parameter has a default value of '@', then it the user should specify a file to send. 
 
