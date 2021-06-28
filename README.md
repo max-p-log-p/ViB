@@ -4,7 +4,7 @@ ViB - Browser in Vi (Vim-Minimal)
 Why should I use this browser?
 ------------------------------
 
-This browser has many capabilities due to its extensibility: the vi interface is reused to support a text based web browser. It is portable to any operating system with python3, vi, and curl installed. It has limited support for javascript.
+This browser has many capabilities due to its extensibility: the vi interface is reused to support a text based web browser. It has limited support for javascript.
 
 Basic Features
 --------------
@@ -32,9 +32,11 @@ Basic Features
 
 For more features read the ex/vi manpage.
 
-How to use
+Installing
 ----------
-Copy the .vibrc file to your home directory and change /path/to/vib in the function vib() to the path to the vib file.
+ViB requires python3, vi (not busybox vi), and curl
+
+$ `make`
 
 Add the following mappings to the configuration file of your version of vi:
 
@@ -52,7 +54,7 @@ The \g mapping is used for clicking links. After undo, the mg command is used to
 ------
 The form function performs a HTTP request that sends form data to the server. The google function allows you to search google by typing in the search query like this: google vib browser. The vib function allows the user to modify the html to fix errors or manually interpret javascript followed by a reparsing of the webpage. The urlencode function performs url encoding. The user agent is provided in each of the functions in the -A option because some websites do not work with curl's user agent. The cookie_file is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The --data-raw option is necessary to send data in GET and POST requests. The -L option is convenient because it enables curl to perform redirects. The 2>&1 argument prevents curl from creating a blank line at the top of the file. Finally, the option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
 
-The sed command `s/[^^[-~]/࿽/g` in the function vib replaces any characters that are not in the range from 27 to 126 inclusive with the UTF-8 form feed replacement character (0xfffd). For more information, read the sed manpage. 
+The sed command in the function vib replaces any characters that are not in the range from 27 to 126 inclusive with the UTF-8 form feed replacement character (0xfffd). For more information, read the sed manpage. 
 
 Links
 -----
@@ -86,7 +88,7 @@ http://www.tipjar.com/cgi-bin/test image=@&test=
 
 would require the user to type 
 
-:. ~/.vibrc; html "$(tail -n 28)" -F image=@/tmp/test -F test=a
+:%!. ~/.vibrc; html "$(tail -n 28)" -F image=@/tmp/test -F test=a
 
 to send the file /tmp/test with the test parameter having a value of a.
 
@@ -96,7 +98,7 @@ http://www.tipjar.com/cgi-bin/test image=test&test=test2
 
 would require the user to type 
 
-:. ~/.vibrc; form 28
+:%!. ~/.vibrc; form 28
 
 or \f 28 as a shortcut to send the image parameter with a value of test and test parameter with a value of test2.
 
