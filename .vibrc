@@ -1,15 +1,15 @@
 export USER_AGENT='Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0'
-export JAR=~/.lb/cookie
+export JAR=~/.vib/cookie
 export OUT='\n%{url_effective}'
 
-form() { tail -"$1" | head -1 | { read -r url data; http "$url" --data-raw "$data" $2; } | vib; }
+form() { tail -"$1" | head -1 | { IFS=' ' read -r url data; http "$url" --data-raw "$data" $2; } | html; }
+
+html() { vib | sed 's/[^	-~]/�/g'; }
 
 http() { curl -s -b "$JAR" -c "$JAR" --compressed --proto =https -L -A "$USER_AGENT" -w "$OUT" "$@" 2>&1; }
 
-get() { tail -"$1" | http "$(head -1)" | vib; }
+get() { tail -"$1" | http "$(head -1)" | html; }
 
-google() { http "https://www.google.com/search?q=$(urlencode "$*")" | vib; }
+google() { http "https://www.google.com/search?q=$(urlencode "$*")" | html; }
 
-url() { http "$1" | vib; }
-
-vib() { ~/.vib/vib | sed 's/[^\t-~]/�/g'; }
+url() { http "$1" | html; }
