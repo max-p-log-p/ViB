@@ -114,6 +114,8 @@ It may be possible to use protocol smuggling to attempt a client side request fo
 
 This browser has not been tested for multiuser systems, the web pages one is reading may be visible to other users on the system. Best practice is to use the file ~/.vib/tab1 for browsing.
 
+OpenBSD sed and nvi may not support the UTF-8 form feed character. Use sed 's/[^	-~]//g' instead.
+
 Work In Progress
 ----------------
 - Rewrite in flex/bison for portability and correctness
