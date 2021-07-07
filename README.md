@@ -1,5 +1,5 @@
-ViB - Browser in Vi (Vim-Minimal)
-=================================
+ViB - Browser in Vi
+===================
 
 Why should I use this browser?
 ------------------------------
@@ -27,14 +27,14 @@ Basic Features
 - History - Use :his to list history. For persistent history, modify a function to append the requested url to a file.
 - Bookmarks - Maintain a bookmarks file with links
 - Hide Password - Cover with physical object.
-- Debugging - add --trace (:%!. ~/.vibrc; url https://www.google.com --trace)
+- Debugging - add --trace to http()
 - File Upload - Use -F for each parameter in the file. See the section Links.
 
 For more features read the ex/vi manpage.
 
 Installing
 ----------
-ViB requires python3, vi (not busybox vi), and curl
+Dependencies: python3, vi (vim, nvi), curl
 
 $ `make`
 
@@ -46,7 +46,7 @@ Add the following mappings to the configuration file of your version of vi:
 
 	map \u :%!. ~/.vibrc; url https://
 
-	map \j mjyw:$+-
+	map \j mj:$+-
 
 The \g mapping is used for clicking links. After undo, the mg command is used to allow the user to return to the original position by entering \`g. The \f mapping is used for http requests that send form data. To send a form with get data, type \f, followed by the link number and -G. To send a form with post data, type \f followed by the link number. The \j mapping is used to find the link corresponding to a link number. To return to the original link, press \`j. The \u mapping is used to request a url.
 
@@ -54,7 +54,7 @@ The \g mapping is used for clicking links. After undo, the mg command is used to
 ------
 The form function performs a HTTP request that sends form data to the server. The google function allows you to search google by typing in the search query like this: google vib browser. The vib function allows the user to modify the html to fix errors or manually interpret javascript followed by a reparsing of the webpage. The urlencode function performs url encoding. The user agent is provided in each of the functions in the -A option because some websites do not work with curl's user agent. The cookie_file is provided in the -b and -c option if one wishes to maintain the state of an HTTP session. The --compressed option allows for faster requests and allows support for servers that send gzipped data regardless of the Accept: Encoding header. The --data-raw option is necessary to send data in GET and POST requests. The -L option is convenient because it enables curl to perform redirects. The 2>&1 argument prevents curl from creating a blank line at the top of the file. Finally, the option -w is necessary for the python script to work: it assumes that the last url that curl requested is in the last line of the data. For more information about the options, read the curl manpage. 
 
-The sed command in the function vib replaces any characters that are not in the range from 27 to 126 inclusive with the UTF-8 form feed replacement character (0xfffd). For more information, read the sed manpage. 
+The sed command in the function vib replaces any characters that are not in the range from 9 to 126 inclusive with the UTF-8 form feed replacement character (U+FFFD). For more information, read the sed manpage. 
 
 Links
 -----
@@ -80,7 +80,7 @@ The action is shown to give the user an idea of what the link is used for. In th
 
 The method is shown to let the user know which method they should use to send data. If the method is get or if the method is not shown, the user should append -G when sending the data (e.g. :. ~/.vibrc; form 28 -G). It the method is post, the user should not append -G when sending the data (e.g. :. ~/.vibrc; form 28).
 
-The enctype value application/x-www-form-urlencoded or its absence is the default enctype which means that the user should use the vi mapping \f to send the data. The enctype value multipart/form-data means that the user needs to manually uspecify parameters to send the data. If a parameter has a default value of '@', then it the user should specify a file to send. 
+The enctype value application/x-www-form-urlencoded or its absence is the default enctype which means that the user should use the vi mapping \f to send the data. The enctype value multipart/form-data means that the user needs to manually specify parameters to send the data. If a parameter has a default value of '@', then it the user should specify a file to send. 
 
 For example, a link with a link number of 28 and enctype of multipart/form-data that looks like
 
@@ -98,21 +98,21 @@ http://www.tipjar.com/cgi-bin/test image=test&test=test2
 
 would require the user to type 
 
-:%!. ~/.vibrc; form 28
+:%!. ~/.vibrc; form 5 -G
 
-or \f 28 as a shortcut to send the image parameter with a value of test and test parameter with a value of test2.
+or \f 5 -G as a shortcut to send the image parameter with a value of test and test parameter with a value of test2 using a GET request.
 
-Warnings
+Warnings/Errata
 ---------------
 Many web pages have invalid html. It is possible to fix this by getting the raw html, manually fixing the error, then reparsing with %!. ~/.vibrc; vib.
 
-It is wise to compile curl without most of its support for various protocols if you don't need it. Curl has frequent vulnerabilities in those protocols, they may allow for disclosure of sensitive data/command execution, and the --proto, --proto-default, and --proto-redir options may be bypassed by an attacker.
-
-OpenBSD nvi will complain that 'The ! command doesn't permit an address of 0.' with an empty file. Modify the file to fi this.
+OpenBSD nvi will complain that 'The ! command doesn't permit an address of 0.' with an empty file.
 
 Do not paste urls into the ex prompt: first paste them into an empty file, then use the \g mapping to request the url. Otherwise, vi/vim could potentially interpret some characters as shell metacharacters and execute commands. If the google search query has weird metacharacters, escape the metacharacters with a backslash or type the search query into the file and use a command like google "$(tail -1)" instead (assuming the query is on the last line of the file).
 
 It may be possible to use protocol smuggling to attempt a client side request forgery attack. If possible, use the web browser in a network namespace/virtual environment or ensure that services running have some sort of client side request forgery protection.
+
+This browser has not been tested for multiuser systems, the web pages one is reading may be visible to other users on the system. Best practice is to use the file ~/.vib/tab1 for browsing.
 
 Work In Progress
 ----------------
@@ -120,4 +120,4 @@ Work In Progress
 
 Bugs
 ----
-Please send the website url and raw html to the email seL4@disroot.org, as well as any thing you have changed from the defaults.
+Please send issues to the email seL4+vib@disroot.org.
