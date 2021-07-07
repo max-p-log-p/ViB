@@ -4,43 +4,46 @@ from urllib.parse import urljoin, quote_plus as urle, urlparse
 from html.parser import HTMLParser
 
 def a(attrs):
-	if 'href' in attrs: # a needs href
+	if 'href' in attrs and isinstance(attrs['href'], str): # href must be str
 		# \033 -> ^[ and \035 -> ^], blue color in vim
 		sys.stdout.write(f'\033{len(urls)}\035 ')
+
 		# must strip href of leading and trailing whitespace
 		urls.append(urljoin(urls[1], attrs['href'].strip()))
 
 def get_name_value(attrs):
-	# input, textarea, button needs a form and name attribute
-	if ViB.form[0] and 'name' in attrs:
-		value = ViB.defs.get(attrs.get('type')) or urle(attrs.get('value', ''))
-		ViB.form[2] += f'{attrs["name"]}={value}&'
+	# input, textarea, button needs a form and non-empty name attribute
+	if ViB.form[0] and 'name' in attrs and attrs['name']:
+		# if value is None, urle(None) -> error
+		val = ViB.defs.get(attrs.get('type')) or urle(attrs.get('value') or '')
+		ViB.form[2] += f'{attrs["name"]}={val}&'
 
 def start_form(attrs):
-	# if no action attribute, use the path of the last url requested 
-	# use / if the path of the last url requested is empty or action is ''
-	ViB.form[0] = attrs.get('action', urls[0]).strip() or '/'
-	# method: user needs to know to use -G or not
-	# enctype: user needs to know whether to use -F or --data-raw
-	ViB.form[1] = f'{attrs.get("method", "")} {attrs.get("enctype", "")}'
+	# if action is not in attrs, use the path of the last url
+	# use / if action is None, path of the last url is empty, or action is ''
+	ViB.form[0] = (attrs.get('action', urls[0]) or '/').strip()
+
+	# method: user needs to know to use get or post
+	# enctype: user needs to know whether to use -F (curl)
+	ViB.form[1] = f'{attrs.get("method") or ""} {attrs.get("enctype") or ""}'
 
 def option(attrs):
 	if ViB.form[3]: # option needs a select
-		# commas delimit option values since they can't be an actual value
-		# if they were a value, they would be urlencoded to %2C
-		ViB.form[3] += urle(attrs.get('value', '')) + ','
+		# commas are not urlencoded so user knows they aren't actual values
+		ViB.form[3] += urle(attrs.get('value') or '') + ','
 
 def start_select(attrs):
-	if ViB.form[0] and 'name' in attrs: # select needs a form and name
-		# can't be empty or breaks option/end_select
-		ViB.form[3] = attrs['name'] + '='
+	# select needs a form and name
+	if ViB.form[0] and 'name' in attrs and isinstance(attrs['name'], str):
+		ViB.form[3] = attrs['name'] + '=' # can't be empty because '' is false
 
 def end_form():
 	if ViB.form[0]: # ignore stray form end tags
+		# urljoin after so that only relative url is shown to user
 		print(f'\033{len(urls)} {ViB.form[0]}\035 {ViB.form[1]}')
+
 		# space used as delimiter for form() in ~/.vibrc
 		# remove extra & at end
-		# urljoin after so that only relative url is shown to user
 		urls.append(f'{urljoin(urls[1], ViB.form[0])} {ViB.form[2][:-1]}')
 		ViB.form = ['', '', '', ''] # reset values for next form
 
@@ -54,14 +57,14 @@ def ignore(not_used):
 	ViB.handle_data = lambda s, d: None
 
 def show():
+	# assume data can't be None
 	ViB.handle_data = lambda s, d : not d.isspace() and print(d.strip())
 
 class ViB(HTMLParser):
 	form = ['', '', '', ''] # url endpoint, method/enctype, name=value, select
-	# defaults for input type=
-	# @ delimits file since it can't be an actual value
-	# if it was a value, it would be urlencoded
-	defs = {'checkbox': '!', 'file': '@'}
+
+	# delimiters are not urlencoded so user knows they aren't actual values
+	defs = {'checkbox': '!', 'file': '@'} # defaults for input type=
 
 	# tag names produced by handle_starttag are assumed to be lowercase
 	start_tag2func = {'a': a, 'input': get_name_value, 'form': start_form, 
@@ -73,24 +76,27 @@ class ViB(HTMLParser):
 	'select': end_select}
 
 	def handle_starttag(self, tag, attrs):
+		# assume attrs can't be None
 		ViB.start_tag2func.get(tag, lambda attrs : None)(dict(attrs))
 
 	def handle_data(self, data):
-		not data.isspace() and print(data.strip())
+		not data.isspace() and print(data.strip()) # assume data can't be None
 
 	def handle_endtag(self, tag):
 		ViB.end_tag2func.get(tag, lambda : None)()
 
 	# bug 'NotImplementedError: subclasses of ParserBase must override error()'
 	def error(self, message):
-		sys.stderr.write(message)
+		sys.stderr.write(str(message))
 
 # replace so users can see that something should have been there
 sys.stdin.reconfigure(errors='replace')
 input = sys.stdin.readlines()
+
 # last line of input assumed to be last absolute url requested
-# current path also used to increase len(urls) by 1, making tail work correctly
-urls = [urlparse(input[-1]).path, input[-1]]
+# current path used to increase len(urls) by 1, making tail work correctly
+urls = [urlparse(input[-1]).path, input[-1].rstrip()]
+
 ViB().feed('\n'.join(input[:-1]))
 for i in range(len(urls) - 1, 0, -1): # don't print first url (current path)
 	print(urls[i])
