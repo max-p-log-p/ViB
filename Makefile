@@ -1,7 +1,27 @@
-install:
-	mkdir -p ~/.vib
-	cp -n ./vib ~/.vib/vib
-	cp -n ./.vibrc ~/.vibrc
+CC = cc
+INSTALL = /usr/bin/install -c
+INSTALL_PROGRAM = ${INSTALL}
+INSTALL_DATA = ${INSTALL} -m 644
+
+CFLAGS = -O2 -Wall -Werror
+
+DESTDIR = $(HOME)/bin
+
+install: vib .vibrc urlencode
+	mkdir -p $(DESTDIR)
+	$(INSTALL_PROGRAM) ./urlencode $(DESTDIR)/urlencode
+	$(INSTALL_PROGRAM) ./vib $(DESTDIR)/vib
+	$(INSTALL_DATA) ./.vibrc $$HOME/.vibrc
+	mkdir -p $(HOME)/.vib
+	echo '' > $(HOME)/.vib/tab1
+
+urlencode: urlencode.c
+	$(CC) $(CFLAGS) $< -o $@
+
+uninstall:
+	rm -f $(DESTDIR)/{urlencode,vib}
+	rm -f $(HOME)/.vibrc
+	rm -r $(HOME)/.vib
+
 clean:
-	rm -r ~/.vib
-	rm ~/.vibrc
+	rm -f urlencode
