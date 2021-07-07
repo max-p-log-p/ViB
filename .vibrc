@@ -1,17 +1,15 @@
-form() { printf '%s' "$(tail -"$1" | head -1)" | { read -r url data; html "$url" --form-data "$data" $2; } | vib; }
+export USER_AGENT='Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0'
+export JAR=~/.lb/cookie
+export OUT='\n%{url_effective}'
 
-html() {
+form() { tail -"$1" | head -1 | { read -r url data; http "$url" --data-raw "$data" $2; } | vib; }
 
-curl -s -b ~/.vib/cookie -c ~/.vib/cookie --compressed --proto-default https --proto-redir -all,https --proto =http,https -L -A 'Mozilla/5.0 (Windows NT 10.0; rv:78.0) Gecko/20100101 Firefox/78.0' -w '\n%{url_effective}' "$@" 2>&1;
+http() { curl -s -b "$JAR" -c "$JAR" --compressed --proto =https -L -A "$USER_AGENT" -w "$OUT" "$@" 2>&1; }
 
-}
+get() { tail -"$1" | http "$(head -1)" | vib; }
 
-get() { html "$(tail -"$1" | head -1)" | vib; }
+google() { http "https://www.google.com/search?q=$(urlencode "$*")" | vib; }
 
-google() { html "https://www.google.com/search?q=$(urlencode $*)" | vib; }
+url() { http "$1" | vib; }
 
-url() { html "$1" | vib; }
-
-urlencode() { python3 -c "from urllib.parse import quote_plus, sys; print(quote_plus(sys.argv[1]), end='')" "$*"; }
-
-vib() { </dev/stdin ~/.vib/vib | sed 's/[^-~]/�/g'; }
+vib() { ~/.vib/vib | sed 's/[^\t-~]/�/g'; }
