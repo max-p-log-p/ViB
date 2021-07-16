@@ -1,0 +1,2 @@
+#!/bin/sh
+head -c 16M /dev/urandom | ../vib >/dev/null
