@@ -89,6 +89,10 @@ class ViB(HTMLParser):
 	def error(self, message):
 		sys.stderr.write(str(message))
 
+	# ignore MS-word extension syntax: 2 bugs in _markupbase.py
+	def parse_marked_section(self, i, report=1):
+		return -1
+
 # replace so users can see that something should have been there
 sys.stdin.reconfigure(errors='replace')
 input = sys.stdin.readlines()
