@@ -6,7 +6,11 @@ form() { tail -"$1" | head -1 | { IFS=' ' read -r url data; http "$url" --data-r
 
 html() { vib | sed 's/[^	-~]/�/g'; }
 
-http() { curl -s -b "$JAR" -c "$JAR" --compressed --proto =https -L -A "$USER_AGENT" -w "$OUT" "$@" 2>&1; }
+http() { 
+
+curl -s -b "$JAR" -c "$JAR" --compressed --proto =https --proto-default https -L -A "$USER_AGENT" -w "$OUT" "$@" 2>&1; 
+
+}
 
 get() { tail -"$1" | http "$(head -1)" | html; }
 
